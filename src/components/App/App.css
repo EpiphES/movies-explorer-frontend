@@ -1,1 +1,13 @@
+.app {
+  background-color: #202020;
+  color: #fff;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
 
+.app__container {
+  max-width: 1280px;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 0 70px;
+  margin: auto;
+}
