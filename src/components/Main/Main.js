@@ -1,6 +1,6 @@
 import './Main.css';
 
-import '../Header/Header';
+import Header from '../Header/Header';
 import '../Navigation/Navigation';
 import '../Footer/Footer';
 
@@ -12,7 +12,11 @@ import '../AboutMe/AboutMe';
 import '../Portfolio/Portfolio';
 
 function Main() {
-  return <div className='Main'>Main</div>;
+  return (
+    <div className='main'>
+      <Header />
+    </div>
+  );
 }
 
 export default Main;
