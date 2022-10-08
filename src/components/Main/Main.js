@@ -1,6 +1,6 @@
 import './Main.css';
 
-import '../Footer/Footer';
+import Footer from '../Footer/Footer';
 
 import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';
@@ -16,6 +16,7 @@ function Main() {
       <Techs />
       <AboutMe />
       <Portfolio />
+      <Footer />
     </div>
   );
 }

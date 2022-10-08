@@ -1,1 +1,33 @@
+.footer {
+  padding: 79px 70px 20px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+}
 
+.footer__heading {
+  padding-bottom: 20px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+  text-align: center;
+  color: #8b8b8b;
+  border-bottom: 1px solid #424242;
+}
+
+.footer__contain {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: #fff;
+}
