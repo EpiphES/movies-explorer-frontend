@@ -1,12 +1,10 @@
 import './Main.css';
 
-import Header from '../Header/Header';
-import '../Navigation/Navigation';
 import '../Footer/Footer';
 
-import '../Promo/Promo';
+import Promo from '../Promo/Promo';
 import '../NavTab/NavTab';
-import '../AboutProject/AboutProject';
+import AboutProject from '../AboutProject/AboutProject';
 import '../Techs/Techs';
 import '../AboutMe/AboutMe';
 import '../Portfolio/Portfolio';
@@ -14,7 +12,8 @@ import '../Portfolio/Portfolio';
 function Main() {
   return (
     <div className='main'>
-      <Header />
+      <Promo />
+      <AboutProject />
     </div>
   );
 }
