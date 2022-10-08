@@ -36,3 +36,18 @@
   transform: scale(1.1);
   opacity: 1;
 }
+
+@media screen and (max-width: 480px) {
+  .nav-tab__links {
+    gap: 14px;
+  }
+  
+  .nav-tab__link {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .nav-tab__link_type_login {
+    padding: 5px 12px;
+  }
+}
