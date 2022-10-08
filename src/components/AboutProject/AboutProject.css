@@ -3,7 +3,7 @@
 }
 
 .about-project__heading {
-  padding-bottom: 23px;
+  padding-bottom: 22px;
   font-weight: 400;
   font-size: 22px;
   line-height: 1.21;
@@ -13,7 +13,8 @@
 
 .about-project__text {
   margin-top: 70px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 40px;
 }
 
@@ -21,6 +22,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 1.2;
+  letter-spacing: -0.04em;
 }
 
 .about-project__paragraph {
@@ -51,7 +53,7 @@
 }
 
 .about-project__schedule-text {
-  padding-top: 14px;
+  padding-top: 15px;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.21;
