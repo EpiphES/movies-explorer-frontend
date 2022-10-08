@@ -1,5 +1,5 @@
 .portfolio {
-  padding: 50px 70px 125px;
+  padding: 50px 70px 115px;
 }
 
 .portfolio__title {
@@ -17,16 +17,27 @@
   gap: 20px;
 }
 
-.portfolio__link {
-  padding-bottom: 19px;
+.portfolio__links-item {
+  padding-bottom: 9px;
+  border-bottom: 1px solid #424242;
+}
+
+.portfolio__link {  
   font-weight: 400;
   font-size: 30px;
   line-height: 1.67;
   letter-spacing: -0.04em;
   color: #FFFFFF;
-  text-decoration: none;
-  border-bottom: 1px solid #424242;
+  text-decoration: none;  
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
+
+.portfolio__links-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.portfolio__arrow {
+  line-height: 60px;
 }
