@@ -3,25 +3,11 @@
   background-color: #073042;  
 }
 
-.promo__link {
-  margin-top: 146px;
-  padding: 10px 20px;
-  display: inline-block;
-  
-  border: 1px solid rgba(255, 255, 255, .6);;
-  border-radius: 3px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-}
-
 .promo__content {
   padding: 75px 0;
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 40px;
 }
 
 .promo__title {
@@ -37,11 +23,25 @@
   margin-top: 36px;
   font-weight: 400;
   font-size: 13px;
-  line-height: 1.21;
+  line-height: 1.2;
   opacity: .5;
 }
 
 .promo__image {
   width: 310px;
   height: 304px;
+}
+
+.promo__link {
+  margin-top: 146px;
+  padding: 9px 19px;
+  display: inline-block;
+  
+  border: 1px solid rgba(255, 255, 255, .6);;
+  border-radius: 3px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
 }
