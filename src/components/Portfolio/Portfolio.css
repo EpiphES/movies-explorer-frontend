@@ -1,1 +1,32 @@
+.portfolio {
+  padding: 50px 70px 125px;
+}
 
+.portfolio__title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.11;
+  color: #8B8B8B;
+}
+
+.portfolio__links {
+  margin-top: 50px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.portfolio__link {
+  padding-bottom: 19px;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.67;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-bottom: 1px solid #424242;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
