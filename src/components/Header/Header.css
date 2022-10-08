@@ -4,26 +4,3 @@
   justify-content: space-between;
   align-items: center;
 }
-
-.header__links {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-}
-
-.header__link {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-}
-
-.header__link_type_button {
-  padding: 8px 20px;
-  color: #000;
-  background-color: #3ddc84;
-  border-radius: 3px;
-
-}
-
