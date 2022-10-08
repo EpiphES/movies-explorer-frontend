@@ -5,7 +5,7 @@ import '../Footer/Footer';
 import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from'../Techs/Techs';
-import '../AboutMe/AboutMe';
+import AboutMe from '../AboutMe/AboutMe';
 import '../Portfolio/Portfolio';
 
 function Main() {
@@ -14,6 +14,7 @@ function Main() {
       <Promo />
       <AboutProject />
       <Techs />
+      <AboutMe />
     </div>
   );
 }
