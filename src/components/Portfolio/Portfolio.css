@@ -22,6 +22,11 @@
   border-bottom: 1px solid #424242;
 }
 
+.portfolio__links-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
 .portfolio__link {  
   font-weight: 400;
   font-size: 30px;
@@ -31,12 +36,14 @@
   text-decoration: none;  
   display: flex;
   justify-content: space-between;
+  transition: opacity .5s ease;
 }
 
-.portfolio__links-item:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
+.portfolio__link:hover {
+  opacity: .6;
 }
+
+
 
 .portfolio__arrow {
   line-height: 60px;

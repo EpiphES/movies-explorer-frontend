@@ -44,4 +44,10 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
+  transition: all .4s ease;
+}
+
+.promo__link:hover {
+  transform: scale(1.05);
+  opacity: .6;
 }

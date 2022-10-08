@@ -55,10 +55,14 @@
 
 .about-me__link {
   margin-top: auto;
-  /* display: block; */
   text-decoration: none;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.21;
   color: #fff;
+  transition: opacity .5s ease;
+}
+
+.about-me__link:hover {
+  opacity: .6;
 }

@@ -17,6 +17,11 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
+  transition: opacity .5s ease;
+}
+
+.nav-tab__link:hover {
+  opacity: .6;
 }
 
 .nav-tab__link_type_login {
@@ -24,4 +29,10 @@
   color: #000;
   background-color: #3ddc84;
   border-radius: 3px;
+  transition: all .4s ease;
+}
+
+.nav-tab__link_type_login:hover {
+  transform: scale(1.1);
+  opacity: 1;
 }
