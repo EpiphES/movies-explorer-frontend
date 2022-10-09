@@ -54,8 +54,73 @@
 
 .about-project__schedule-text {
   padding-top: 15px;
-  font-weight: 500;
+  font-family: 'Suisse Intl', Arial, Helvetica, sans-serif;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
   color:  #8b8b8b;
+}
+
+@media screen and (max-width: 1024px) {
+  .about-project {
+    padding: 91px 50px;
+  }
+
+  .about-project__text {
+    gap: 30px;
+  }
+
+  .about-project__paragraph {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .about-project__schedule {
+    margin-top: 94px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+
+  .about-project__heading {
+    padding-bottom: 28px;
+    font-size: 18px;
+  }
+
+  .about-project__text {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .about-project__title {
+    font-size: 18px;
+  }
+
+  .about-project__paragraph {
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .about-project__schedule {
+    margin-top: 62px;
+    grid-template-columns: 100px 1fr;
+  }
+
+  .about-project__schedule-heading {
+    padding: 11px 0;
+    font-size: 11px;
+  }
+
+  .about-project__schedule-text {
+    padding-top: 10px;
+    font-size: 11px;
+    line-height: 1.16;
+  }
 }
