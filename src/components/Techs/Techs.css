@@ -50,3 +50,59 @@
   letter-spacing: -0.04em;
   border-radius: 10px;
 }
+
+@media screen and (max-width: 1024px) {
+  .techs {
+    padding: 90px 50px;
+  }
+
+  .techs__title {
+    margin-top: 80px;
+  }
+
+  .techs__subtitle {
+    margin-top: 22px;
+    font-size: 12px;
+  }
+
+  .techs__list {
+    margin-top: 85px;
+    padding: 0 10px;
+  }
+
+  .techs__list-item {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .techs__list {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .techs {
+    padding: 70px 18px;
+  }
+
+  .techs__heading {
+    padding-bottom: 28px;
+    font-size: 18px;
+  }
+
+  .techs__title {
+    margin-top: 60px;
+    font-size: 30px;
+    line-height: 1.21;
+  }
+
+  .techs__subtitle {
+    margin-top: 24px;
+    font-size: 11px;
+  }
+
+  .techs__list {
+    margin-top: 50px;    
+  }  
+}
