@@ -1,1 +1,30 @@
+.register {
+  max-width: 396px;
+  height: 100vh;
+  margin: auto;
+  padding: 70px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+}
 
+.register__title {
+  margin: 40px 0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.register__question {
+  margin-top: 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  color: #8b8b8b;
+}
+
+.register__link {
+  text-decoration: none;
+  color: #4285f4;
+}
