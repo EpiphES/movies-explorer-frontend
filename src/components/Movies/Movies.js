@@ -5,12 +5,13 @@ import '../Navigation/Navigation';
 import '../Footer/Footer';
 
 import '../SearchForm/SearchForm';
+import Header from '../Header/Header';
 
 
 function Movies() {
   return (
     <div className='Movies'>
-      Movies
+      < Header />
     </div>
   );
 }
