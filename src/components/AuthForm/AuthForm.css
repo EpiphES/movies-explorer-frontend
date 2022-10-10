@@ -1,4 +1,6 @@
 .auth-form {
+  width: 100%;
+  min-height: 380px;
   display: flex;
   flex-direction: column;
 }
@@ -54,7 +56,7 @@
 
 .auth-form__submit-button {
   margin-top: auto;
-  padding: 13px 0 15px;
+  padding: 15px 0;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.21;
@@ -65,10 +67,28 @@
   border: none;
   border-radius: 3px;
   cursor: pointer;
+
+  transition: transform .4s ease;
+}
+
+.auth-form__submit-button:hover {
+  transform: scale(1.03);
 }
 
 .auth-form__submit-button_disabled {
   opacity: .5;
 }
 
+.auth-form__submit-button_disabled:hover {
+  transform: none;
+}
 
+@media screen and (max-width: 480px) {
+  .auth-form {
+    min-height: auto;
+  }
+
+  .auth-form__submit-button {
+    font-size: 12px;
+  }
+}
