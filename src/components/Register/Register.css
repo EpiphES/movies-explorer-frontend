@@ -1,11 +1,10 @@
 .register {
   max-width: 396px;
-  height: 100vh;
+  min-height: 100vh;
   margin: auto;
-  padding: 70px 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto 1fr auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .register__title {
@@ -27,4 +26,32 @@
 .register__link {
   text-decoration: none;
   color: #4285f4;
+  transition: opacity .5s ease;
+}
+
+.register__link:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 480px) {
+  .register {
+    max-width: 100%;
+    padding: 56px 30px 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    justify-items: center;
+  }
+
+  .register__title {
+    margin: 50px 0 80px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .register__question {
+    margin-top: 14px;
+    font-size: 12px;
+  }
 }

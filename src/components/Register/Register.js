@@ -34,12 +34,19 @@ function Register() {
   return (
     <section className='register'>
       <Logo />
-      <h2 className='register__title'>Рады видеть!</h2>
+      <h2 className='register__title'>Добро пожаловать!</h2>
       <AuthForm 
         name='register'
         submitText='Зарегистрироваться'
         onSubmit={handleSubmit}
-        isValid={true}
+        isValid={
+          values.name.isValid &&
+          values.email.isValid &&
+          values.password.isValid &&
+          values.name.value &&
+          values.email.value &&
+          values.password.value
+        }
       >
         
         <label for='register-name' className='auth-form__label'>Имя</label>
@@ -54,6 +61,7 @@ function Register() {
           minLength="2"
           maxLength="30"
           required
+          autoFocus
           onChange={handleChange}
           value={values.name.value}
         />
