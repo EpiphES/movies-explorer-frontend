@@ -38,30 +38,12 @@ function Login() {
         name='login'
         submitText='Войти'
         onSubmit={handleSubmit}
-        isValid={true}
-      >
-        
-        {/* <label for='login-name' className='auth-form__label'>Имя</label>
-        <input
-          className={`auth-form__input ${
-            !values.name.isValid && 'auth-form__input_invalid'
-          }`}
-          type='text'
-          name='name'
-          id='login-name'
-          placeholder='Введите имя'
-          minLength="2"
-          maxLength="30"
-          required
-          onChange={handleChange}
-          value={values.name.value}
-        />
-        <span
-          className={`auth-form__input-error ${
-            !values.name.isValid && 'auth-form__input-error_visible'
-          }`}>
-          {values.name.error}
-        </span> */}
+        isValid={
+          values.email.isValid &&
+          values.password.isValid &&
+          values.email.value &&
+          values.password.value
+        }>        
         <label for='login-email' className='auth-form__label'>E-mail</label>
         <input
           className={`auth-form__input ${
@@ -72,6 +54,7 @@ function Login() {
           id='login-email'
           placeholder='Введите email'
           required
+          autoFocus
           onChange={handleChange}
           value={values.email.value}
         />
