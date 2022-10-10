@@ -1,17 +1,17 @@
 import './Movies.css';
 
-import '../Header/Header';
-import '../Navigation/Navigation';
-import '../Footer/Footer';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 import '../SearchForm/SearchForm';
-import Header from '../Header/Header';
+
 
 
 function Movies() {
   return (
-    <div className='Movies'>
+    <div className='movies'>
       < Header />
+      <Footer />
     </div>
   );
 }
