@@ -44,7 +44,7 @@ function Login() {
           values.email.value &&
           values.password.value
         }>        
-        <label for='login-email' className='auth-form__label'>E-mail</label>
+        <label htmlFor='login-email' className='auth-form__label'>E-mail</label>
         <input
           className={`auth-form__input ${
             !values.email.isValid && 'auth-form__input_invalid'
@@ -64,7 +64,7 @@ function Login() {
           }`}>
           {values.email.error}
         </span>
-        <label for='login-password' className='auth-form__label'>Пароль</label>
+        <label htmlFor='login-password' className='auth-form__label'>Пароль</label>
         <input
           className='auth-form__input'
           type='password'

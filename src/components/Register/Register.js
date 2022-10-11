@@ -49,7 +49,7 @@ function Register() {
         }
       >
         
-        <label for='register-name' className='auth-form__label'>Имя</label>
+        <label htmlFor='register-name' className='auth-form__label'>Имя</label>
         <input
           className={`auth-form__input ${
             !values.name.isValid && 'auth-form__input_invalid'
@@ -71,7 +71,7 @@ function Register() {
           }`}>
           {values.name.error}
         </span>
-        <label for='register-email' className='auth-form__label'>E-mail</label>
+        <label htmlFor='register-email' className='auth-form__label'>E-mail</label>
         <input
           className={`auth-form__input ${
             !values.email.isValid && 'auth-form__input_invalid'
@@ -90,7 +90,7 @@ function Register() {
           }`}>
           {values.email.error}
         </span>
-        <label for='register-password' className='auth-form__label'>Пароль</label>
+        <label htmlFor='register-password' className='auth-form__label'>Пароль</label>
         <input
           className='auth-form__input'
           type='password'
