@@ -27,7 +27,6 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
-  position: relative;
 }
 
 .auth-form__input:focus {
