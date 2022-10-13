@@ -1,5 +1,7 @@
 import './SearchForm.css';
 
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+
 function SearchForm({ name }) {
   function handleSubmit(evt) {
     evt.preventDefault();    
@@ -24,26 +26,9 @@ function SearchForm({ name }) {
           />
           <button className='search-form__submit-button'
           // disabled={ values.search.value.length === 0 } 
-          type="submit" />
-            
+          type="submit" />            
         </div>
-        <div className='search-form__filter'>
-          <label 
-            className='search-form__filter-label' htmlFor='shorts'>
-            <input
-              className='search-form__checkbox'
-              type='checkbox'
-              name='shorts'
-              id='shorts'
-              // onChange={handleCheckBox}
-              // checked={true}            
-            />          
-            <span className='search-form__styled-checkbox' 
-            />
-            <span className='search-form__filter-text'>Короткометражки</span>
-          </label>
-        </div>
-
+        <FilterCheckbox />
       </form>
       
     </section>
