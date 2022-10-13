@@ -1,26 +1,37 @@
 import './Header.css';
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
 
-function Header() {
-  const [isNavMenuOpened, setIsNavMenuOpened] = useState(false);
+function Header({ page, loggedIn }) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   function openNavMenu() {
-    setIsNavMenuOpened(true);
+    setIsNavOpen(true);
   }
-
+ 
   function closeNavMenu() {
-    setIsNavMenuOpened(false);
+    setIsNavOpen(false);
   }
   
   return (
-    <header className='header'>
+    <header className={`header header_place_${page}`}>
       <Logo />
-      <Navigation isOpened={ isNavMenuOpened } handleClose={ closeNavMenu }/>
-      <button className='header__menu-button' onClick={ openNavMenu }/>
+      { loggedIn ? 
+      (
+        <>
+          <button className='header__menu-button' onClick={openNavMenu}/>
+          <Navigation isOpened={isNavOpen} handleClose={closeNavMenu}/>
+        </>
+      ) :  (
+        <div className='header__links'>
+          <Link to='/signup' className='header__link'>Регистрация</Link>
+          <Link to='/signin' className='header__link header__link_accented'>Войти</Link>
+        </div>
+      )}      
     </header>
   );
 }
