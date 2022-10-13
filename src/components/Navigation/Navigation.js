@@ -9,7 +9,7 @@ function Navigation({ isOpened, handleClose }) {
       <button className='navigation__close navigation__hidden-item' onClick={ handleClose }/>
       <ul className='navigation__links-list'>
         <li>
-          <NavLink to='/' className='navigation__link navigation__hidden-item'>Главная</NavLink>
+          <NavLink end to='/' className='navigation__link navigation__hidden-item'>Главная</NavLink>
         </li>
         <li>
           <NavLink to='/movies' className=  'navigation__link'>Фильмы</NavLink>
