@@ -1,7 +1,7 @@
 .header {
   padding: 18px 70px;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 85px 1fr;
   align-items: center;  
 }
 
