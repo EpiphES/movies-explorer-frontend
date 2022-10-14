@@ -57,3 +57,42 @@
 .card__save_active {
   background: #ee3465 url(../../images/saved.svg) no-repeat center;
 }
+
+.card__delete {
+  margin: 18px 0;
+  width: 100px;
+  height: 29px;
+  
+  align-self: center;
+  background: #313131;
+  border: none;
+  border-radius: 30px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: .92;
+
+  text-align: center; 
+
+  color: #fff;
+  transition: transform .4s ease;
+}
+
+@media screen and (max-width: 480px) {
+  .card__header {
+    padding: 14px;    
+  }
+
+  .card__title {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .card__subtitle {
+    font-size: 10px;
+    line-height: 1.8;
+  }
+
+  .card__save {
+    margin: 14px 0;
+  }
+}

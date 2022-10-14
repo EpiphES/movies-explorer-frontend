@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 480px) {
   .movies {
-    padding-right: 14px;
-    padding-left: 14px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }

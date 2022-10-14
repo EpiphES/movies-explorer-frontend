@@ -2,12 +2,13 @@ import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ cards }) {
+function MoviesCardList({ cards, isSavedMoviesPage}) {
   const cardsElements = cards.map((item) => {
     return (
       <li key={item._id}>
         <MoviesCard
           card={item}
+          isSavedMoviesPage={isSavedMoviesPage}
         />
       </li>
     );

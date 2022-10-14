@@ -2,11 +2,11 @@ import './MoviesCard.css';
 
 import { useState } from 'react';
 
-function MoviesCard({card}) {
-  const [isSaved, setIsSaved] = useState(card.saved)
+function MoviesCard({card, isSavedMoviesPage}) {
+  const [isActive, setIsActive] = useState(card.saved)
 
   function toggleSave() {
-    setIsSaved(!isSaved);
+    setIsActive(!isActive);
   }
   return (
     <div className='card'>
@@ -19,13 +19,22 @@ function MoviesCard({card}) {
         src={card.image} 
         alt={card.nameRU} 
       />
-      <button 
-        className={`card__save ${isSaved && 'card__save_active'}`} 
-        type='button' 
-        onClick={ toggleSave }
-      >
-        {!isSaved && 'Сохранить'}
-      </button>
+      { isSavedMoviesPage ?
+        <button 
+          className='card__delete' 
+          type='button' 
+          // onClick={ handleDelete }
+        />
+          
+        : <button 
+          className={`card__save ${isActive && 'card__save_active'}`} 
+          type='button' 
+          onClick={ toggleSave }
+        >
+          {!isActive && 'Сохранить'}
+        </button>
+      }
+      
     </div>
   );
 }
