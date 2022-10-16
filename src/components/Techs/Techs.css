@@ -37,6 +37,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .techs__list-item {
@@ -72,13 +73,9 @@
   }
 
   .techs__list-item {
+    width: 84px;
     font-size: 12px;
-  }
-}
 
-@media screen and (max-width: 700px) {
-  .techs__list {
-    flex-wrap: wrap;
   }
 }
 
@@ -104,6 +101,8 @@
   }
 
   .techs__list {
-    margin-top: 50px;    
+    margin: 50px auto 0;
+    max-width: 198px;
+    justify-content: flex-start;    
   }  
 }
