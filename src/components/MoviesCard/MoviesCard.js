@@ -25,13 +25,13 @@ function MoviesCard({ card, isSavedMoviesPage, handleDelete }) {
       />
       { isSavedMoviesPage ?
         <button 
-          className='card__delete' 
+          className='card__button card__button_type_delete' 
           type='button' 
           onClick={ () => handleDelete(card._id) }
         />
           
         : <button 
-          className={`card__save ${isActive && 'card__save_active'}`} 
+          className={`card__button card__button_type_save ${isActive && 'card__button_type_active'}`} 
           type='button' 
           onClick={ toggleSave }
         >

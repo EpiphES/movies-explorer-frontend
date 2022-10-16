@@ -36,56 +36,38 @@
   width: 100%;
 }
 
-.card__save {
+.card__button {
   margin: 18px 0;
   width: 100px;
   height: 29px;
-  
+
   align-self: center;
-  background: #313131;
   border: none;
   border-radius: 30px;
   font-weight: 400;
   font-size: 12px;
   line-height: .92;
   
-  text-align: center; 
-
+  text-align: center;
   color: #fff;
   cursor: pointer;
   transition: transform .4s ease;
 }
 
-.card__save:hover {
+.card__button_type_save {
+  background: #313131;  
+}
+
+.card__button:hover {
   transform: scale(1.1);
 }
 
-.card__save_active {
+.card__button_type_active {
   background: #ee3465 url(../../images/saved.svg) no-repeat center;
 }
 
-.card__delete {
-  margin: 18px 0;
-  width: 100px;
-  height: 29px;
-  
-  align-self: center;
+.card__button_type_delete {
   background: #313131 url(../../images/delete-icon.svg) no-repeat center;
-  border: none;
-  border-radius: 30px;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: .92;
-
-  text-align: center; 
-
-  color: #fff;
-  cursor: pointer;
-  transition: transform .4s ease;
-}
-
-.card__delete:hover {
-  transform: scale(1.1);
 }
 
 @media screen and (max-width: 480px) {
@@ -103,7 +85,7 @@
     line-height: 1.8;
   }
 
-  .card__save {
+  .card__button {
     margin: 14px 0;
   }
 }
