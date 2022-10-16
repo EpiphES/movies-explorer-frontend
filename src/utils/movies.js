@@ -126,7 +126,7 @@ const savedMovies = [
     nameRU: 'В погоне за Бенкси',
     duration: 27,
     image: movie11,
-    movieId: 1,  
+    movieId: 11,  
   },
 ]
 
