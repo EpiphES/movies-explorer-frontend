@@ -9,9 +9,7 @@ function FilterCheckbox() {
           className='filter__checkbox'
           type='checkbox'
           name='shorts'
-          id='shorts'
-          // onChange={handleCheckBox}
-          // checked={true}            
+          id='shorts'           
         />          
         <span className='filter__styled-checkbox' 
         />
