@@ -5,9 +5,7 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 
-import movies from '../../utils/movies';
-
-
+import { allMovies } from '../../utils/movies';
 
 function Movies() {
   return (
@@ -16,7 +14,7 @@ function Movies() {
       <main className='movies'>
         <SearchForm />
         <MoviesCardList 
-          cards={ movies } 
+          movies={ allMovies } 
         />     
       </main>
       <Footer />

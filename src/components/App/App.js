@@ -11,6 +11,7 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
 function App() {
+  
   return (
     <div className='app'>
       <div className='app__container'>
@@ -21,15 +22,15 @@ function App() {
           />
           <Route
             path='/movies'
-            element={ <Movies /> }
+            element={ <Movies loggedIn /> }
           />
           <Route
             path='/saved-movies'
-            element={ <SavedMovies /> }
+            element={ <SavedMovies loggedIn /> }
           />
           <Route
             path='/profile'
-            element={ <Profile /> }
+            element={ <Profile loggedIn /> }
           />
           <Route
             path='/signin'
@@ -40,7 +41,7 @@ function App() {
             element={ <Register /> }
           />
           <Route
-            path='/*'
+            path='*'
             element={ <NotFound /> }
           />
         </Routes>
