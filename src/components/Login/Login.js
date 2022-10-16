@@ -33,7 +33,7 @@ function Login() {
   return (
     <section className='login'>
       <Logo />
-      <h2 className='login__title'>Рады видеть!</h2>
+      <h1 className='login__title'>Рады видеть!</h1>
       <AuthForm 
         name='login'
         submitText='Войти'
