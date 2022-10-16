@@ -1,5 +1,4 @@
 .card {
-  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: #222;
@@ -11,13 +10,17 @@
   padding: 18px;
   display: flex;
   justify-content: space-between;
-
+  gap: 10px;
 }
 
 .card__title {
   font-weight: 500;
   font-size: 15px;
   line-height: 1.2;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .card__subtitle {
@@ -25,6 +28,8 @@
   font-size: 13px;
   line-height: 1.38;
   color: #8b8b8b;
+  white-space: nowrap;
+  
 }
 
 .card__image {
@@ -43,10 +48,11 @@
   font-weight: 400;
   font-size: 12px;
   line-height: .92;
-
+  
   text-align: center; 
 
   color: #fff;
+  cursor: pointer;
   transition: transform .4s ease;
 }
 
@@ -64,7 +70,7 @@
   height: 29px;
   
   align-self: center;
-  background: #313131;
+  background: #313131 url(../../images/delete-icon.svg) no-repeat center;
   border: none;
   border-radius: 30px;
   font-weight: 400;
@@ -74,7 +80,12 @@
   text-align: center; 
 
   color: #fff;
+  cursor: pointer;
   transition: transform .4s ease;
+}
+
+.card__delete:hover {
+  transform: scale(1.1);
 }
 
 @media screen and (max-width: 480px) {

@@ -1,9 +1,13 @@
 import './MoviesCard.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { savedMovies } from '../../utils/movies';
 
-function MoviesCard({card, isSavedMoviesPage}) {
-  const [isActive, setIsActive] = useState(card.saved)
+function MoviesCard({ card, isSavedMoviesPage, handleDelete }) {
+  const [isActive, setIsActive] = useState(false);
+  useEffect (() => {
+    setIsActive(savedMovies.some(item => item.movieId === card._id))
+  }, [card._id]);
 
   function toggleSave() {
     setIsActive(!isActive);
@@ -23,7 +27,7 @@ function MoviesCard({card, isSavedMoviesPage}) {
         <button 
           className='card__delete' 
           type='button' 
-          // onClick={ handleDelete }
+          onClick={ () => handleDelete(card._id) }
         />
           
         : <button 
