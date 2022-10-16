@@ -55,6 +55,11 @@
 }
 
 @media screen and (max-width: 480px) {
+  .search-form {
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
   .search-form__input-group {
     margin-bottom: 46px;    
   }
