@@ -1,6 +1,7 @@
 .register {
   max-width: 396px;
   min-height: 100vh;
+  padding: 70px 0;
   margin: auto;
   display: flex;
   flex-direction: column;
