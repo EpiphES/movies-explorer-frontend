@@ -27,7 +27,7 @@
 .footer__link {
   text-decoration: none;
   color: #fff;
-  transition: opacity .5s ease
+  transition: opacity .5s ease;
 }
 
 .footer__link:hover {
@@ -68,5 +68,4 @@
   .footer__copyright {
     color: #8b8b8b;
   }
-
 }

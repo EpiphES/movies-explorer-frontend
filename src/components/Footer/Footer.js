@@ -9,10 +9,24 @@ function Footer() {
         <p className='footer__copyright'>© { year }</p>
         <ul className='footer__links'>
           <li>
-            <a className='footer__link' href='https://practicum.yandex.ru' rel='noreferrer' target='_blank'>Яндекс.Практикум</a>
+            <a 
+              className='footer__link'
+              href='https://practicum.yandex.ru' 
+              rel='noreferrer' 
+              target='_blank'
+            >
+              Яндекс.Практикум
+            </a>
           </li>
           <li>
-            <a className='footer__link' href='https://github.com' rel='noreferrer' target='_blank'>Github</a>
+            <a 
+              className='footer__link' 
+              href='https://github.com' 
+              rel='noreferrer' 
+              target='_blank'
+            >
+              Github
+            </a>
           </li>
         </ul>
       </div>
