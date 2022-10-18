@@ -29,7 +29,7 @@
 }
 
 .search-form__input:focus {
-  outline: none;
+  outline: 1px solid #4285f4; 
 }
 
 .search-form__submit-button {

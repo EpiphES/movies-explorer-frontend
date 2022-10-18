@@ -12,7 +12,8 @@ function SearchForm({ name }) {
         className='search-form__form' 
         name={`${name}-form`}
         onSubmit={ handleSubmit }
-        noValidate>
+        // noValidate
+      >
         <div className='search-form__input-group'>
           <input
             className='search-form__input'
