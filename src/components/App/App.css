@@ -1,0 +1,15 @@
+.app {
+  background-color: #202020;
+  color: #fff;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.app__container {
+  max-width: 1280px;
+  min-width: 300px;
+  min-height: 100vh;
+  margin: auto;
+}
