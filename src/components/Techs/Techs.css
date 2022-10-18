@@ -82,11 +82,13 @@
 @media screen and (max-width: 480px) {
   .techs {
     padding: 70px 18px;
+    background-color: #202020;
   }
 
   .techs__heading {
     padding-bottom: 28px;
     font-size: 18px;
+    border-bottom: 1px solid #000;
   }
 
   .techs__title {
