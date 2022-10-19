@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react';
 
+import isEmail from 'validator/lib/isEmail';
+
 export default function useForm(initialValues) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
@@ -56,9 +58,7 @@ export default function useForm(initialValues) {
             ...prevState,
             email:'Поле "email" должно быть заполнено'
           }));
-        } else if(
-          !new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i).test(value)
-          ){
+        } else if(!isEmail(value)){
           setErrors((prevState) => ({
             ...prevState,
             email:'Введен некорректный адрес электронной почты'
@@ -95,6 +95,7 @@ export default function useForm(initialValues) {
   const resetForm = useCallback(
     (NewValues = {}, newIsFormValid = false) => {
       setValues(NewValues);
+      setErrors({});
       setIsFormValid(newIsFormValid);
     },
     [setValues, setIsFormValid]
