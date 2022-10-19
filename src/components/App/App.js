@@ -1,6 +1,6 @@
 import './App.css';
 import {useState} from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import Main from '../Main/Main';
 import ProtectedRoute from '../ProtectedRoute/ProtectedPoute';
@@ -11,9 +11,25 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
+import * as MainApi from '../../utils/MainApi';
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  function handleLogin({ email, password }) {
+    console.log(email, password)
+    MainApi
+      .login({ email, password })
+      .then((user) => {
+        setLoggedIn(true);
+        navigate('/movies');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   
   return (
     <div className='app'>
@@ -50,7 +66,7 @@ function App() {
             } />
           <Route
             path='/signin'
-            element={ <Login /> }
+            element={ <Login onLogin={handleLogin}/> }
           />
           <Route
             path='/signup'

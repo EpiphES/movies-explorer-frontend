@@ -6,30 +6,26 @@ import useForm from '../../utils/useForm';
 import Logo from '../Logo/Logo';
 import AuthForm from '../AuthForm/AuthForm';
 
-function Login() {
+function Login({onLogin}) {
   const initialFormValues = {
-    name: {
-      value: '',
-      error: '',
-      isValid: true,
-    },
     email: {
       value: '',
-      error: '',
-      isValid: true,
+      isValid: false,
     },
     password: {
       value: '',
-      error: '',
-      isValid: true,
+      isValid: false,
     },
   }
 
-  const { values, handleChange } = useForm(initialFormValues);
+  const { values, errors, handleChange, isFormValid, resetForm } = useForm(initialFormValues);
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    onLogin({email: values.email.value, password: values.password.value});
+    // resetForm(initialFormValues, false)
   }
+
   return (
     <section className='login'>
       <Logo />
@@ -38,13 +34,12 @@ function Login() {
         name='login'
         submitText='Войти'
         onSubmit={handleSubmit}
-        isValid={
-          values.email.isValid &&
-          values.password.isValid &&
-          values.email.value &&
-          values.password.value
-        }>        
-        <label htmlFor='login-email' className='auth-form__label'>E-mail</label>
+        isValid={isFormValid}
+      >        
+        <label 
+          htmlFor='login-email' className='auth-form__label'>
+          E-mail
+        </label>
         <input
           className={`auth-form__input ${
             !values.email.isValid && 'auth-form__input_invalid'
@@ -62,11 +57,16 @@ function Login() {
           className={`auth-form__input-error ${
             !values.email.isValid && 'auth-form__input-error_visible'
           }`}>
-          {values.email.error}
+          {errors.email}
         </span>
-        <label htmlFor='login-password' className='auth-form__label'>Пароль</label>
+        <label 
+          htmlFor='login-password' className='auth-form__label'>
+          Пароль
+        </label>
         <input
-          className='auth-form__input'
+          className={`auth-form__input ${
+            !values.password.isValid && 'auth-form__input_invalid'
+          }`}
           type='password'
           name='password'
           id='login-password'
@@ -79,7 +79,7 @@ function Login() {
           className={`auth-form__input-error ${
             !values.password.isValid && 'auth-form__input-error_visible'
           }`}>
-          {values.password.error}
+          {errors.password}
         </span>        
       </AuthForm>
       <p className='login__question'>
