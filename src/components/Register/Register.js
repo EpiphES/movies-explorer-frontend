@@ -7,29 +7,28 @@ import useForm from '../../utils/useForm';
 import Logo from '../Logo/Logo';
 import AuthForm from '../AuthForm/AuthForm';
 
-function Register() {
+function Register({ onRegister }) {
   const initialFormValues = {
     name: {
       value: '',
-      error: '',
-      isValid: true,
+      isValid: false,
     },
     email: {
       value: '',
-      error: '',
-      isValid: true,
+      isValid: false,
     },
     password: {
       value: '',
-      error: '',
-      isValid: true,
+      isValid: false,
     },
   }
 
-  const { values, handleChange } = useForm(initialFormValues);
+  const { values, errors, handleChange, isFormValid, resetForm } = useForm(initialFormValues);
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    onRegister({ name: values.name.value, email: values.email.value, password: values.password.value });
+    resetForm(initialFormValues, false);
   }
   return (
     <section className='register'>
@@ -39,17 +38,12 @@ function Register() {
         name='register'
         submitText='Зарегистрироваться'
         onSubmit={handleSubmit}
-        isValid={
-          values.name.isValid &&
-          values.email.isValid &&
-          values.password.isValid &&
-          values.name.value &&
-          values.email.value &&
-          values.password.value
-        }
-      >
-        
-        <label htmlFor='register-name' className='auth-form__label'>Имя</label>
+        isValid={isFormValid}
+      >        
+        <label 
+          htmlFor='register-name' className='auth-form__label'>
+          Имя
+        </label>
         <input
           className={`auth-form__input ${
             !values.name.isValid && 'auth-form__input_invalid'
@@ -69,9 +63,12 @@ function Register() {
           className={`auth-form__input-error ${
             !values.name.isValid && 'auth-form__input-error_visible'
           }`}>
-          {values.name.error}
+          {errors.name}
         </span>
-        <label htmlFor='register-email' className='auth-form__label'>E-mail</label>
+        <label 
+          htmlFor='register-email' className='auth-form__label'>
+          E-mail
+        </label>
         <input
           className={`auth-form__input ${
             !values.email.isValid && 'auth-form__input_invalid'
@@ -88,11 +85,13 @@ function Register() {
           className={`auth-form__input-error ${
             !values.email.isValid && 'auth-form__input-error_visible'
           }`}>
-          {values.email.error}
+          {errors.email}
         </span>
         <label htmlFor='register-password' className='auth-form__label'>Пароль</label>
         <input
-          className='auth-form__input'
+          className={`auth-form__input ${
+            !values.password.isValid && 'auth-form__input_invalid'
+          }`}
           type='password'
           name='password'
           id='register-password'
@@ -105,7 +104,7 @@ function Register() {
           className={`auth-form__input-error ${
             !values.password.isValid && 'auth-form__input-error_visible'
           }`}>
-          {values.password.error}
+          {errors.password}
         </span>        
       </AuthForm>
       <p className='register__question'>

@@ -30,6 +30,18 @@ function App() {
         console.log(err);
       });
   }
+
+  function handleRegister({ name, email, password }) {
+    MainApi
+    .register({name, email, password})
+    .then((user) => {
+        setLoggedIn(true);
+        navigate('/movies');
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
   
   return (
     <div className='app'>
@@ -70,7 +82,7 @@ function App() {
           />
           <Route
             path='/signup'
-            element={ <Register /> }
+            element={ <Register onRegister={handleRegister} /> }
           />
           <Route
             path='*'
