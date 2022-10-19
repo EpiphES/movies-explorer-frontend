@@ -1,5 +1,5 @@
 import './Register.css';
-
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import useForm from '../../utils/useForm';
@@ -7,20 +7,29 @@ import useForm from '../../utils/useForm';
 import Logo from '../Logo/Logo';
 import AuthForm from '../AuthForm/AuthForm';
 
-function Register({ onRegister }) {
+function Register({ onRegister, registerError, setRegisterError }) {
   const initialFormValues = {
     name: '',
     email: '',
     password: '',
   }
 
-  const { values, errors, handleChange, isFormValid, resetForm } = useForm(initialFormValues);
+  const { values, errors, handleChange, isFormValid } = useForm(initialFormValues);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onRegister({ name: values.name, email: values.email, password: values.password });
-    resetForm(initialFormValues, false);
   }
+  
+   function handleInputChange(evt) {
+    handleChange(evt);
+    setRegisterError('');
+  }
+
+  useEffect(() => {
+    setRegisterError('');
+  }, [setRegisterError])
+
   return (
     <section className='register'>
       <Logo />
@@ -48,7 +57,7 @@ function Register({ onRegister }) {
           pattern='^[A-Za-zА-Яа-я-\s]+$'
           required
           autoFocus
-          onChange={handleChange}
+          onChange={handleInputChange}
           value={values.name}
         />
         <span
@@ -71,7 +80,7 @@ function Register({ onRegister }) {
           placeholder='Введите email'
           required
           pattern='^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
-          onChange={handleChange}
+          onChange={handleInputChange}
           value={values.email}
         />
         <span
@@ -80,7 +89,10 @@ function Register({ onRegister }) {
           }`}>
           {errors.email}
         </span>
-        <label htmlFor='register-password' className='auth-form__label'>Пароль</label>
+        <label 
+          htmlFor='register-password' className='auth-form__label'>
+          Пароль
+        </label>
         <input
           className={`auth-form__input ${
             errors.password && 'auth-form__input_invalid'
@@ -90,7 +102,7 @@ function Register({ onRegister }) {
           id='register-password'
           placeholder='Введите пароль'
           required
-          onChange={handleChange}
+          onChange={handleInputChange}
           value={values.password}
         />
         <span
@@ -98,7 +110,8 @@ function Register({ onRegister }) {
             errors.password && 'auth-form__input-error_visible'
           }`}>
           {errors.password}
-        </span>        
+        </span>
+        {registerError && (<span className="auth-form__submit-error" >{registerError}</span>)}        
       </AuthForm>
       <p className='register__question'>
         Уже зарегистрированы? <Link to='/signin' className='login__link'>Войти</Link></p>      

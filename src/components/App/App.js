@@ -16,30 +16,33 @@ import * as MainApi from '../../utils/MainApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
+  const [registerError, setRegisterError] = useState('');
 
   function handleLogin({ email, password }) {
-    console.log(email, password)
     MainApi
       .login({ email, password })
       .then((user) => {
+        console.log(user);
         setLoggedIn(true);
+        setLoginError('');
         navigate('/movies');
       })
       .catch((err) => {
-        console.log(err);
+        setLoginError(err.message);
       });
   }
 
   function handleRegister({ name, email, password }) {
     MainApi
     .register({name, email, password})
-    .then((user) => {
-        setLoggedIn(true);
-        navigate('/movies');
+    .then(() => {
+      setRegisterError('');
+      handleLogin({ email, password })
     })
     .catch((err) => {
-      console.log(err);
+      setRegisterError(err.message);
     })
   }
   
@@ -78,12 +81,22 @@ function App() {
             } />
           <Route
             path='/signin'
-            element={ <Login onLogin={handleLogin}/> }
-          />
+            element={ 
+              <Login 
+                onLogin={handleLogin} 
+                loginError={loginError}
+                setLoginError={setLoginError}
+              /> 
+            } />
           <Route
             path='/signup'
-            element={ <Register onRegister={handleRegister} /> }
-          />
+            element={
+              <Register 
+                onRegister={handleRegister}
+                registerError={registerError}
+                setRegisterError={setRegisterError}
+              /> 
+            } />
           <Route
             path='*'
             element={ <NotFound /> }

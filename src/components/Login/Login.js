@@ -1,4 +1,5 @@
 import './Login.css';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import useForm from '../../utils/useForm';
@@ -6,19 +7,28 @@ import useForm from '../../utils/useForm';
 import Logo from '../Logo/Logo';
 import AuthForm from '../AuthForm/AuthForm';
 
-function Login({onLogin}) {
+function Login({onLogin, loginError, setLoginError}) {
+  
   const initialFormValues = {
     email: '',
     password: '',
   }
-
-  const { values, errors, handleChange, isFormValid, resetForm } = useForm(initialFormValues);
+ 
+  const { values, errors, handleChange, isFormValid } = useForm(initialFormValues);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onLogin({email: values.email, password: values.password});
-    resetForm(initialFormValues, false)
   }
+
+  function handleInputChange(evt) {
+    handleChange(evt);
+    setLoginError('');
+  }
+
+  useEffect(() => {
+    setLoginError('');
+  }, [setLoginError])
 
   return (
     <section className='login'>
@@ -43,9 +53,10 @@ function Login({onLogin}) {
           id='login-email'
           placeholder='Введите email'
           required
+          pattern='^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
           autoFocus
-          onChange={handleChange}
-          value={values.email.value}
+          onChange={handleInputChange}
+          value={values.email}
         />
         <span
           className={`auth-form__input-error ${
@@ -66,15 +77,16 @@ function Login({onLogin}) {
           id='login-password'
           placeholder='Введите пароль'
           required
-          onChange={handleChange}
-          value={values.password.value}
+          onChange={handleInputChange}
+          value={values.password}
         />
         <span
           className={`auth-form__input-error ${
             errors.password && 'auth-form__input-error_visible'
           }`}>
           {errors.password}
-        </span>        
+        </span>
+        {loginError && (<span className="auth-form__submit-error" >{loginError}</span>)}        
       </AuthForm>
       <p className='login__question'>
         Ещё не зарегистрированы? <Link to='/signup' className='login__link'>Регистрация</Link></p>      
