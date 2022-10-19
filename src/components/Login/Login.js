@@ -8,22 +8,16 @@ import AuthForm from '../AuthForm/AuthForm';
 
 function Login({onLogin}) {
   const initialFormValues = {
-    email: {
-      value: '',
-      isValid: false,
-    },
-    password: {
-      value: '',
-      isValid: false,
-    },
+    email: '',
+    password: '',
   }
 
   const { values, errors, handleChange, isFormValid, resetForm } = useForm(initialFormValues);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onLogin({email: values.email.value, password: values.password.value});
-    // resetForm(initialFormValues, false)
+    onLogin({email: values.email, password: values.password});
+    resetForm(initialFormValues, false)
   }
 
   return (
@@ -42,7 +36,7 @@ function Login({onLogin}) {
         </label>
         <input
           className={`auth-form__input ${
-            !values.email.isValid && 'auth-form__input_invalid'
+            errors.email && 'auth-form__input_invalid'
           }`}
           type='email'
           name='email'
@@ -55,7 +49,7 @@ function Login({onLogin}) {
         />
         <span
           className={`auth-form__input-error ${
-            !values.email.isValid && 'auth-form__input-error_visible'
+            errors.email && 'auth-form__input-error_visible'
           }`}>
           {errors.email}
         </span>
@@ -65,7 +59,7 @@ function Login({onLogin}) {
         </label>
         <input
           className={`auth-form__input ${
-            !values.password.isValid && 'auth-form__input_invalid'
+            errors.password && 'auth-form__input_invalid'
           }`}
           type='password'
           name='password'
@@ -77,7 +71,7 @@ function Login({onLogin}) {
         />
         <span
           className={`auth-form__input-error ${
-            !values.password.isValid && 'auth-form__input-error_visible'
+            errors.password && 'auth-form__input-error_visible'
           }`}>
           {errors.password}
         </span>        

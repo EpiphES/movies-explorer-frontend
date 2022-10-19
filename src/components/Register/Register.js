@@ -9,25 +9,16 @@ import AuthForm from '../AuthForm/AuthForm';
 
 function Register({ onRegister }) {
   const initialFormValues = {
-    name: {
-      value: '',
-      isValid: false,
-    },
-    email: {
-      value: '',
-      isValid: false,
-    },
-    password: {
-      value: '',
-      isValid: false,
-    },
+    name: '',
+    email: '',
+    password: '',
   }
 
   const { values, errors, handleChange, isFormValid, resetForm } = useForm(initialFormValues);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onRegister({ name: values.name.value, email: values.email.value, password: values.password.value });
+    onRegister({ name: values.name, email: values.email, password: values.password });
     resetForm(initialFormValues, false);
   }
   return (
@@ -46,7 +37,7 @@ function Register({ onRegister }) {
         </label>
         <input
           className={`auth-form__input ${
-            !values.name.isValid && 'auth-form__input_invalid'
+            errors.name && 'auth-form__input_invalid'
           }`}
           type='text'
           name='name'
@@ -54,14 +45,15 @@ function Register({ onRegister }) {
           placeholder='Введите имя'
           minLength="2"
           maxLength="30"
+          pattern='^[A-Za-zА-Яа-я-\s]+$'
           required
           autoFocus
           onChange={handleChange}
-          value={values.name.value}
+          value={values.name}
         />
         <span
           className={`auth-form__input-error ${
-            !values.name.isValid && 'auth-form__input-error_visible'
+            errors.name && 'auth-form__input-error_visible'
           }`}>
           {errors.name}
         </span>
@@ -71,26 +63,27 @@ function Register({ onRegister }) {
         </label>
         <input
           className={`auth-form__input ${
-            !values.email.isValid && 'auth-form__input_invalid'
+            errors.email && 'auth-form__input_invalid'
           }`}
           type='email'
           name='email'
           id='register-email'
           placeholder='Введите email'
           required
+          pattern='^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
           onChange={handleChange}
-          value={values.email.value}
+          value={values.email}
         />
         <span
           className={`auth-form__input-error ${
-            !values.email.isValid && 'auth-form__input-error_visible'
+            errors.email && 'auth-form__input-error_visible'
           }`}>
           {errors.email}
         </span>
         <label htmlFor='register-password' className='auth-form__label'>Пароль</label>
         <input
           className={`auth-form__input ${
-            !values.password.isValid && 'auth-form__input_invalid'
+            errors.password && 'auth-form__input_invalid'
           }`}
           type='password'
           name='password'
@@ -98,11 +91,11 @@ function Register({ onRegister }) {
           placeholder='Введите пароль'
           required
           onChange={handleChange}
-          value={values.password.value}
+          value={values.password}
         />
         <span
           className={`auth-form__input-error ${
-            !values.password.isValid && 'auth-form__input-error_visible'
+            errors.password && 'auth-form__input-error_visible'
           }`}>
           {errors.password}
         </span>        
