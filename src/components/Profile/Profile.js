@@ -1,34 +1,24 @@
 import './Profile.css';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import Header from '../Header/Header';
 
 import useForm from '../../utils/useForm';
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 
 function Profile() {
-  const [currentUser, setCurrentUser] = useState ({
-    name: 'Виталий',
-    email: 'pochta@yandex.ru', 
-  });
-
+  const currentUser = useContext(CurrentUserContext);
+  
   const [isEdited, setIsEdited] = useState(false);
 
   const initialFormValues = {
-    name: {
-      value: '',
-      error: '',
-      isValid: true,
-    },
-    email: {
-      value: '',
-      error: '',
-      isValid: true,
-    },
+    name: currentUser.name,
+    email: currentUser.value,
   }
 
-  const { values, handleChange } = useForm(initialFormValues);
+  const { values, errors, handleChange } = useForm(initialFormValues);
 
   function handleSubmit(evt) {
     evt.preventDefault();

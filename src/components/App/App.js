@@ -12,6 +12,7 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
 import * as MainApi from '../../utils/MainApi';
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 
 function App() {
@@ -19,12 +20,13 @@ function App() {
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
   const [registerError, setRegisterError] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
 
   function handleLogin({ email, password }) {
     MainApi
       .login({ email, password })
       .then((user) => {
-        console.log(user);
+        setCurrentUser(user.data);
         setLoggedIn(true);
         setLoginError('');
         navigate('/movies');
@@ -47,63 +49,65 @@ function App() {
   }
   
   return (
-    <div className='app'>
-      <div className='app__container'>
-        <Routes>
-          <Route
-            path='/'
-            element={ 
-              <Main loggedIn={loggedIn}/> 
-            } />
-          <Route
-            path='/movies'
-            element={ 
-              <ProtectedRoute
-                component={Movies}
-                loggedIn={loggedIn}
-               /> 
-            } />
-          <Route
-            path='/saved-movies'
-            element={ 
-              <ProtectedRoute
-                component={SavedMovies}
-                loggedIn={loggedIn}
-               /> 
-            } />
-          <Route
-            path='/profile'
-            element={ 
-              <ProtectedRoute
-                component={Profile}
-                loggedIn={loggedIn}
-               /> 
-            } />
-          <Route
-            path='/signin'
-            element={ 
-              <Login 
-                onLogin={handleLogin} 
-                loginError={loginError}
-                setLoginError={setLoginError}
-              /> 
-            } />
-          <Route
-            path='/signup'
-            element={
-              <Register 
-                onRegister={handleRegister}
-                registerError={registerError}
-                setRegisterError={setRegisterError}
-              /> 
-            } />
-          <Route
-            path='*'
-            element={ <NotFound /> }
-          />
-        </Routes>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='app'>
+        <div className='app__container'>
+          <Routes>
+            <Route
+              path='/'
+              element={ 
+                <Main loggedIn={loggedIn}/> 
+              } />
+            <Route
+              path='/movies'
+              element={ 
+                <ProtectedRoute
+                  component={Movies}
+                  loggedIn={loggedIn}
+                /> 
+              } />
+            <Route
+              path='/saved-movies'
+              element={ 
+                <ProtectedRoute
+                  component={SavedMovies}
+                  loggedIn={loggedIn}
+                /> 
+              } />
+            <Route
+              path='/profile'
+              element={ 
+                <ProtectedRoute
+                  component={Profile}
+                  loggedIn={loggedIn}
+                /> 
+              } />
+            <Route
+              path='/signin'
+              element={ 
+                <Login 
+                  onLogin={handleLogin} 
+                  loginError={loginError}
+                  setLoginError={setLoginError}
+                /> 
+              } />
+            <Route
+              path='/signup'
+              element={
+                <Register 
+                  onRegister={handleRegister}
+                  registerError={registerError}
+                  setRegisterError={setRegisterError}
+                /> 
+              } />
+            <Route
+              path='*'
+              element={ <NotFound /> }
+            />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 
