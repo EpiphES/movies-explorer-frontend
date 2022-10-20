@@ -22,7 +22,7 @@ function InfoTip({ errorMessage, isInfotipOpen, onClose}) {
           ) : (
             <>
             <img className='infotip__icon' src={checkedIcon} alt={'успешный запрос'} />
-            <h2 className='infotip__title infortip__title_type_success'>Данные успешно отредактированы!</h2>
+            <h2 className='infotip__title infortip__title_type_success'>Данные профиля успешно изменены!</h2>
           </>
           )
         }        
