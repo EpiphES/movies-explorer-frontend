@@ -1,5 +1,7 @@
 .footer {
+  width: 100%;
   padding: 79px 70px 20px;
+  margin-top: auto;
   font-weight: 400;
   font-size: 13px;
   line-height: 1.23;
