@@ -1,34 +1,31 @@
 import './SavedMovies.css';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { savedMovies } from '../../utils/movies';
 
+function SavedMovies({ loggedIn, loadMovies, movies }) {
 
-function SavedMovies() {
-  const [movies, setMovies] = useState(savedMovies);
-
-  function handleDelete(id) {
-    setMovies((prevState) => prevState.filter(item => item._id !== id))
-  } 
+  useEffect(() => {
+    loadMovies();
+  }, [loadMovies])
 
   return (
-    <div className='SavedMovies'>
-      <Header page={'saved-movies'} loggedIn={true}/>
+    <>
+      <Header page={'saved-movies'} loggedIn={loggedIn}/>
       <main className='saved-movies'>
         <SearchForm />
         <MoviesCardList 
-          movies={ movies }
+          movies={movies}
           isSavedMoviesPage
-          handleDelete={handleDelete}
+          // handleDelete={handleDelete}
           />     
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

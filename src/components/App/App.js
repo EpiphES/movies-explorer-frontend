@@ -1,5 +1,5 @@
 import './App.css';
-import {useState, useEffect } from 'react';
+import {useState, useEffect, useCallback } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import Main from '../Main/Main';
@@ -12,6 +12,7 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
 import * as MainApi from '../../utils/MainApi';
+import * as MoviesApi from '../../utils/MoviesApi'
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 
@@ -23,7 +24,8 @@ function App() {
   const [registerError, setRegisterError] = useState('');
   const [profileError, setProfileError] = useState('');
   const [isInfotipOpen, setIsInfotipOpen] = useState(false);
-  
+  const [allMovies, setAllMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   function handleLogin({ email, password }) {
     MainApi
@@ -84,6 +86,23 @@ function App() {
     setIsInfotipOpen(false);
   }
 
+  function loadAllMovies() {
+    MoviesApi
+    .getAllMovies()
+    .then((data) => {
+      setAllMovies(data);
+      console.log(data);
+    })
+    .catch((err) => console.log(err));
+  }
+
+  const loadSavedMovies = useCallback(() => {
+    MainApi
+    .getSavedMovies()
+    .then((res) => setSavedMovies(res.data))
+    .catch((err) => console.log(err));
+  },[]);
+
   useEffect(() => {
     MainApi
       .getCurrentUser()
@@ -110,6 +129,10 @@ function App() {
                 <ProtectedRoute
                   component={Movies}
                   loggedIn={loggedIn}
+                  loadAllMovies={loadAllMovies}
+                  loadSavedMovies={loadSavedMovies}
+                  allMovies={allMovies}
+                  savedMovies={savedMovies}
                 /> 
               } />
             <Route
@@ -118,6 +141,8 @@ function App() {
                 <ProtectedRoute
                   component={SavedMovies}
                   loggedIn={loggedIn}
+                  loadMovies={loadSavedMovies}
+                  movies={savedMovies}
                 /> 
               } />
             <Route
