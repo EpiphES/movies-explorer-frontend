@@ -21,7 +21,8 @@ function App() {
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
   const [registerError, setRegisterError] = useState('');
-  const [updateUserError, setUpdateUserError] = useState('');
+  const [profileError, setProfileError] = useState('');
+  const [isInfotipOpen, setIsInfotipOpen] = useState(false);
   
 
   function handleLogin({ email, password }) {
@@ -55,10 +56,13 @@ function App() {
     .updateUser({ name, email })
     .then((user) => {
       setCurrentUser(user.data);
-      setUpdateUserError('');
+      setProfileError('');
+      setIsInfotipOpen(true);
+      setProfileError('');
     })
     .catch((err) => {
-      setUpdateUserError(err.message);
+      setProfileError(err.message);
+      setIsInfotipOpen(true);
     })
   }
 
@@ -71,8 +75,13 @@ function App() {
       navigate('/');
     })
     .catch((err) => {
-      console.log(err.message);
+      setProfileError(err.message);
+      setIsInfotipOpen(true);
     })
+  }
+
+  function handleInfotipClose() {
+    setIsInfotipOpen(false);
   }
   
   return (
@@ -109,7 +118,9 @@ function App() {
                   loggedIn={loggedIn}
                   onSignout={handleSignout}
                   onUpdateUser={handleUpdateUser}
-                  updateUserError={updateUserError}
+                  isInfotipOpen={isInfotipOpen}
+                  updateUserError={profileError}
+                  handleInfotipClose={handleInfotipClose}
                 /> 
               } />
             <Route

@@ -1,0 +1,72 @@
+.infotip {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background-color: rgba(0, 0, 0, .7);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all .5s ease-in-out;
+}
+
+.infotip_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.infotip__content {
+  width: 350px;
+  padding: 30px 20px;
+  position: relative;
+
+  background-color: #fff;  
+  box-shadow: 0 0 25px rgba(0,0,0,.15);
+  border-radius: 10px;
+  color: #000;
+}
+
+.infotip__icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 20px;
+  display: block;
+  
+}
+
+.infotip__title {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.infotip__close-button {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  
+  background: transparent url(../../images/close-icon.svg) no-repeat center;  
+  border: none;
+  cursor: pointer;
+  transition: opacity .5s ease;
+}
+
+.infotip__close-button:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 480px) {
+  .infotip__close-button {
+    right: 0;
+  }
+}

@@ -6,9 +6,10 @@ import Header from '../Header/Header';
 
 import useForm from '../../utils/useForm';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import InfoTip from '../InfoTip/InfoTip';
 
 
-function Profile({loggedIn, onSignout, onUpdateUser, updateUserError}) {
+function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserError, handleInfotipClose }) {
   const currentUser = useContext(CurrentUserContext);
   
   const initialFormValues = {
@@ -100,8 +101,10 @@ function Profile({loggedIn, onSignout, onUpdateUser, updateUserError}) {
           Выйти из аккаунта
         </button>
       </section>
-    </>
-    
+      <InfoTip 
+        errorMessage={updateUserError} isInfotipOpen={isInfotipOpen} 
+        onClose={handleInfotipClose}/>
+    </>    
   );
 }
 
