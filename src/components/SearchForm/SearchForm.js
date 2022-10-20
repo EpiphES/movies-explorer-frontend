@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ name, handleFilterMovies }) {
+function SearchForm({ name, renderMovies }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchQueryError, setSearchQueryError] = useState('');
   const [isFilterActive, setFilterActive] = useState(false);
@@ -21,7 +21,7 @@ function SearchForm({ name, handleFilterMovies }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     searchQuery ? 
-      handleFilterMovies(searchQuery, isFilterActive)
+      renderMovies(searchQuery, isFilterActive)
       : 
       setSearchQueryError('Нужно ввести ключевое слово');   
   }

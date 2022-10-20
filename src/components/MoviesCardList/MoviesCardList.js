@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 
-function MoviesCardList({ movies, isSavedMoviesPage, handleDelete}) {
+function MoviesCardList({ movies, isSavedMoviesPage, savedMovies, handleDelete}) {
 
   const [slicedMovies, setSlicedMovies] = useState([]);
   
@@ -40,7 +40,7 @@ function MoviesCardList({ movies, isSavedMoviesPage, handleDelete}) {
 
   function appendMovies() {
     setSlicedMovies((prevVal) => {
-      return prevVal.concat(movies.slice(prevVal.length, prevVal.length + 8));
+      return prevVal.concat(movies.slice(prevVal.length, prevVal.length + 3));
     })
   }  
 
@@ -51,6 +51,7 @@ function MoviesCardList({ movies, isSavedMoviesPage, handleDelete}) {
           card={item}
           isSavedMoviesPage={isSavedMoviesPage}
           handleDelete={handleDelete}
+          savedMovies={savedMovies}
         />
       </li>
     );
