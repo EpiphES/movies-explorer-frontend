@@ -1,6 +1,6 @@
 import './Profile.css';
 
-import { useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import Header from '../Header/Header';
 
@@ -17,6 +17,8 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
     email: currentUser.email,
   }
 
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
   const { values, errors, handleChange, isFormValid } = useForm(initialFormValues);
 
   function handleSubmit(evt) {
@@ -24,10 +26,14 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
     onUpdateUser({ name: values.name, email: values.email});
   }
 
+  useEffect(() => {
+    setIsSubmitDisabled(!isFormValid || (values.name === currentUser.name && values.email === currentUser.email))
+  }, [currentUser, isFormValid, values]);
+
   return (
     <>
       <Header page={'profile'} loggedIn={loggedIn} />
-      <section className='profile'>
+      <main className='profile'>
         <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
         <form 
           className='profile__form'
@@ -87,8 +93,8 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
             {errors.email}
           </span>
           <button 
-            className='profile__button profile__button_type_submit' type='submit'
-            disabled={!isFormValid}
+            className={`profile__button profile__button_type_submit ${isSubmitDisabled && 'profile__button_disabled'}`} type='submit'
+            disabled={isSubmitDisabled}
             aria-label={'редактировать'}>
             Редактировать
           </button>
@@ -100,7 +106,7 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
           onClick={onSignout}>    
           Выйти из аккаунта
         </button>
-      </section>
+      </main>
       <InfoTip 
         errorMessage={updateUserError} isInfotipOpen={isInfotipOpen} 
         onClose={handleInfotipClose}/>
