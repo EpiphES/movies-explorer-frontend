@@ -57,6 +57,7 @@ function Login({onLogin, loginError, setLoginError}) {
           autoFocus
           onChange={handleInputChange}
           value={values.email}
+          autoComplete={'off'}
         />
         <span
           className={`auth-form__input-error ${
@@ -79,6 +80,7 @@ function Login({onLogin, loginError, setLoginError}) {
           required
           onChange={handleInputChange}
           value={values.password}
+          autoComplete={'off'}
         />
         <span
           className={`auth-form__input-error ${

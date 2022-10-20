@@ -52,13 +52,14 @@ function Register({ onRegister, registerError, setRegisterError }) {
           name='name'
           id='register-name'
           placeholder='Введите имя'
-          minLength="2"
-          maxLength="30"
+          minLength='2'
+          maxLength='30'
           pattern='^[A-Za-zА-Яа-я-\s]+$'
           required
           autoFocus
           onChange={handleInputChange}
           value={values.name}
+          autoComplete={'off'}
         />
         <span
           className={`auth-form__input-error ${
@@ -82,6 +83,7 @@ function Register({ onRegister, registerError, setRegisterError }) {
           pattern='^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
           onChange={handleInputChange}
           value={values.email}
+          autoComplete={'off'}
         />
         <span
           className={`auth-form__input-error ${
@@ -104,6 +106,7 @@ function Register({ onRegister, registerError, setRegisterError }) {
           required
           onChange={handleInputChange}
           value={values.password}
+          autoComplete={'off'}
         />
         <span
           className={`auth-form__input-error ${
