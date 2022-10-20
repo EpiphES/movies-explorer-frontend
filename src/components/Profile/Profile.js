@@ -8,7 +8,7 @@ import useForm from '../../utils/useForm';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 
-function Profile() {
+function Profile({loggedIn, onSignout, onUpdateUser, updateUserError}) {
   const currentUser = useContext(CurrentUserContext);
   
   const initialFormValues = {
@@ -20,11 +20,12 @@ function Profile() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    onUpdateUser({ name: values.name, email: values.email});
   }
 
   return (
     <>
-      <Header page={'profile'} loggedIn={true} />
+      <Header page={'profile'} loggedIn={loggedIn} />
       <section className='profile'>
         <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
         <form 
@@ -50,6 +51,7 @@ function Profile() {
               required
               onChange={handleChange}
               value={values.name}
+              autoComplete={'off'}
             />
           </label>  
 
@@ -74,6 +76,7 @@ function Profile() {
               pattern='^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
               onChange={handleChange}
               value={values.email}
+              autoComplete={'off'}
             />
           </label>            
           <span
@@ -89,7 +92,13 @@ function Profile() {
             Редактировать
           </button>
         </form>        
-        <button className='profile__button profile__button_type_exit' type='button'>Выйти из аккаунта</button>
+        <button 
+          className='profile__button profile__button_type_exit'
+          type='button'
+          aria-label={'выйти из аккаунта'}
+          onClick={onSignout}>    
+          Выйти из аккаунта
+        </button>
       </section>
     </>
     

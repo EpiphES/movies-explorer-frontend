@@ -12,15 +12,17 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
 import * as MainApi from '../../utils/MainApi';
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
   const [registerError, setRegisterError] = useState('');
-  const [currentUser, setCurrentUser] = useState(null);
+  const [updateUserError, setUpdateUserError] = useState('');
+  
 
   function handleLogin({ email, password }) {
     MainApi
@@ -38,13 +40,38 @@ function App() {
 
   function handleRegister({ name, email, password }) {
     MainApi
-    .register({name, email, password})
+    .register({ name, email, password })
     .then(() => {
       setRegisterError('');
       handleLogin({ email, password })
     })
     .catch((err) => {
       setRegisterError(err.message);
+    })
+  }
+
+  function handleUpdateUser({ name, email }) {
+    MainApi
+    .updateUser({ name, email })
+    .then((user) => {
+      setCurrentUser(user.data);
+      setUpdateUserError('');
+    })
+    .catch((err) => {
+      setUpdateUserError(err.message);
+    })
+  }
+
+  function handleSignout() {
+    MainApi
+    .logout()
+    .then(() => {
+      setLoggedIn(false);
+      setCurrentUser(null);
+      navigate('/');
+    })
+    .catch((err) => {
+      console.log(err.message);
     })
   }
   
@@ -80,6 +107,9 @@ function App() {
                 <ProtectedRoute
                   component={Profile}
                   loggedIn={loggedIn}
+                  onSignout={handleSignout}
+                  onUpdateUser={handleUpdateUser}
+                  updateUserError={updateUserError}
                 /> 
               } />
             <Route
