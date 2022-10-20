@@ -19,9 +19,9 @@ export function register({ name, email, password }) {
 
 export function login({ email, password }) {
   return fetch(`${BASE_URL}/signin`, {
-    method: "POST",
+    method: 'POST',
     headers,
-    credentials: "include",
+    credentials: 'include',
     body: JSON.stringify({ email, password }),
   })
   .then((res) => checkResponse(res));
@@ -29,9 +29,9 @@ export function login({ email, password }) {
 
 export function logout() {
   return fetch(`${BASE_URL}/signout`, {
-    method: "GET",
+    method: 'GET',
     headers,
-    credentials: "include",
+    credentials: 'include',
   })
   .then((res) => checkResponse(res));
 }
@@ -53,4 +53,56 @@ export function updateUser({ name, email }) {
     body: JSON.stringify({ name, email })
   })
     .then((res) => checkResponse(res));
+}
+
+export function getSavedMovies() {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'GET',
+    headers,
+    credentials: 'include',    
+  })
+    .then((res) => checkResponse(res));
+}
+
+export function saveMovie ({
+  country,
+  director,
+  duration,
+  year,
+  description,
+  image,
+  trailerLink,
+  thumbnail,
+  movieId,
+  nameRU,
+  nameEN,
+}) {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    headers,
+    credentials: 'include',
+    body: JSON.stringify({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      thumbnail,
+      movieId,
+      nameRU,
+      nameEN,
+    })
+  })
+  .then((res) => checkResponse(res));
+}
+
+export function deleteMovie(id) {
+  return fetch(`${BASE_URL}/movies/${id}`, {
+    method: 'DELETE',
+    headers,
+    credentials: 'include',
+  })
+  .then((res) => checkResponse(res));
 }
