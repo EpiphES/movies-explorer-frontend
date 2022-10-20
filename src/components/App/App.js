@@ -1,5 +1,5 @@
 import './App.css';
-import {useState} from 'react';
+import {useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import Main from '../Main/Main';
@@ -83,6 +83,16 @@ function App() {
   function handleInfotipClose() {
     setIsInfotipOpen(false);
   }
+
+  useEffect(() => {
+    MainApi
+      .getCurrentUser()
+      .then((user) => {
+        setLoggedIn(true);
+        setCurrentUser(user.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   
   return (
     <CurrentUserContext.Provider value={currentUser}>
