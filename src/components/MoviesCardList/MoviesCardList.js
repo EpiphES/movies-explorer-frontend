@@ -1,52 +1,12 @@
 import './MoviesCardList.css';
 
-import { useState, useEffect } from 'react';
-
 import MoviesCard from '../MoviesCard/MoviesCard';
 
+function MoviesCardList({ movies, isSavedMoviesPage, savedMovies, handleDelete}) {  
 
-function MoviesCardList({ movies, isSavedMoviesPage, savedMovies, handleDelete}) {
-
-  const [slicedMovies, setSlicedMovies] = useState([]);
-  
-  const [windowWidth, setWindowWidth] = useState(0);
-  
-
-  function updateWindowWidth() {
-    setWindowWidth(window.innerWidth);
-  }
-
-  useEffect (() => {
-    updateWindowWidth()
-    window.addEventListener('resize', updateWindowWidth);
-    return () => window.removeEventListener('resize', updateWindowWidth);       
-  }, [])
-
-  useEffect (() => {
-    let limit
-    if (windowWidth > 1024) {
-      limit = 12;
-    } else if (windowWidth > 480) {
-      limit = 8;
-    } else {
-      limit = 5;
-    }
-     if(movies.length > limit) {
-      setSlicedMovies(movies.slice(0, limit))
-    } else {
-      setSlicedMovies(movies);
-    }
-  }, [windowWidth, movies])
-
-  function appendMovies() {
-    setSlicedMovies((prevVal) => {
-      return prevVal.concat(movies.slice(prevVal.length, prevVal.length + 3));
-    })
-  }  
-
-  const cardsElements = slicedMovies.map((item) => {
+  const cardsElements = movies.map((item) => {
     return (
-      <li key={item._id}>
+      <li key={item.id}>
         <MoviesCard
           card={item}
           isSavedMoviesPage={isSavedMoviesPage}
@@ -59,13 +19,9 @@ function MoviesCardList({ movies, isSavedMoviesPage, savedMovies, handleDelete})
 
   return (
     <>
-      <ul className='card-list__gallery'>
+      <ul className='card-list'>
         {cardsElements}
-      </ul>
-      {slicedMovies.length < movies.length &&
-        <button className='card-list__more' type='button' onClick={ appendMovies }>Ещё</button>
-      }
-      
+      </ul>   
     </>
   );
 }
