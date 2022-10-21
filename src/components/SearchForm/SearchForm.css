@@ -36,6 +36,11 @@
   outline: 1px solid #4285f4; 
 }
 
+.search-form__input:autofill {
+  box-shadow: 0 0 0 30px #202020 inset !important;  
+  -webkit-text-fill-color: #fff !important;
+}
+
 .search-form__submit-button {
   width: 44px;
   height: 44px;
@@ -67,9 +72,8 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .search-form__input-group {
-    margin-bottom: 40px;
-    
+  .search-form__input-error {
+   min-height: 40px;    
   }
 }
 
@@ -79,8 +83,8 @@
     padding-left: 4px;
   }
 
-  .search-form__input-group {
-    margin-bottom: 46px;    
+   .search-form__input-error {
+   min-height: 46px;    
   }
 
   .search-form__input { 

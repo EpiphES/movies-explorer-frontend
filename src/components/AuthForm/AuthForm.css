@@ -35,10 +35,8 @@
   border-bottom: 1px solid #4285f4;
 }
 
-.auth-form__input:-webkit-autofill
-{
-  box-shadow: 0 0 0 30px #202020 inset !important; 
-  -webkit-box-shadow: 0 0 0 30px #202020 inset !important;
+.auth-form__input:autofill {
+  box-shadow: 0 0 0 30px #202020 inset !important;  
   -webkit-text-fill-color: #fff !important;
 }
 
