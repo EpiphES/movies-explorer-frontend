@@ -26,6 +26,7 @@ function App() {
   const [isInfotipOpen, setIsInfotipOpen] = useState(false);
   const [allMovies, setAllMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleLogin({ email, password }) {
     MainApi
@@ -87,13 +88,14 @@ function App() {
   }
 
   function loadAllMovies() {
+    setIsLoading(true);
     MoviesApi
     .getAllMovies()
     .then((data) => {
       setAllMovies(data);
-      console.log(data);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => setIsLoading(false));
   }
 
   const loadSavedMovies = useCallback(() => {
@@ -133,6 +135,7 @@ function App() {
                   loadSavedMovies={loadSavedMovies}
                   allMovies={allMovies}
                   savedMovies={savedMovies}
+                  isLoading={isLoading}
                 /> 
               } />
             <Route
