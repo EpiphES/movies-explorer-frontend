@@ -75,6 +75,7 @@ function App() {
       setLoggedIn(false);
       setCurrentUser(null);
       navigate('/');
+      localStorage.clear();
     })
     .catch((err) => {
       setProfileError(err.message);
@@ -119,7 +120,6 @@ function App() {
   }
 
   useEffect(() => {
-    
     MainApi
       .getCurrentUser()
       .then((user) => {
