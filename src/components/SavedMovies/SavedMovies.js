@@ -1,17 +1,11 @@
 import './SavedMovies.css';
 
-import { useEffect } from 'react';
-
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ loggedIn, loadMovies, movies }) {
-
-  useEffect(() => {
-    loadMovies();
-  }, [loadMovies])
+function SavedMovies({ movies, loggedIn, handleDeleteMovie }) {
 
   return (
     <>
@@ -20,9 +14,9 @@ function SavedMovies({ loggedIn, loadMovies, movies }) {
         <SearchForm />
         <MoviesCardList 
           movies={movies}
-          isSavedMoviesPage
-          // handleDelete={handleDelete}
-          />     
+          isSavedMoviesPage={true}
+          handleDeleteMovie={handleDeleteMovie}
+        />     
       </main>
       <Footer />
     </>

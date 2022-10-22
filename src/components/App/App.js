@@ -12,7 +12,6 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
 import * as MainApi from '../../utils/MainApi';
-import * as MoviesApi from '../../utils/MoviesApi'
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 
@@ -24,9 +23,8 @@ function App() {
   const [registerError, setRegisterError] = useState('');
   const [profileError, setProfileError] = useState('');
   const [isInfotipOpen, setIsInfotipOpen] = useState(false);
-  const [allMovies, setAllMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  
 
   function handleLogin({ email, password }) {
     MainApi
@@ -87,23 +85,34 @@ function App() {
     setIsInfotipOpen(false);
   }
 
-  function loadAllMovies() {
-    setIsLoading(true);
-    MoviesApi
-    .getAllMovies()
-    .then((data) => {
-      setAllMovies(data);
-    })
-    .catch((err) => console.log(err))
-    .finally(() => setIsLoading(false));
-  }
-
-  const loadSavedMovies = useCallback(() => {
+  function loadSavedMovies() {
     MainApi
     .getSavedMovies()
     .then((res) => setSavedMovies(res.data))
     .catch((err) => console.log(err));
-  },[]);
+  };
+
+  function handleSaveMovie(data) {
+    MainApi
+    .saveMovie(data)
+    .then((res) => {
+      setSavedMovies((prevVal) => {
+        return prevVal.concat(res.data);
+      })
+    })
+    .catch((err) => console.log(err));
+  }
+
+  function handleDeleteMovie(id) {
+    MainApi
+    .deleteMovie(id)
+    .then((res) => {
+      setSavedMovies((prevVal) => {
+        return prevVal.filter((item) => item._id !== res.data._id);
+      })
+    })
+    .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     MainApi
@@ -114,6 +123,12 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if(loggedIn) {
+      loadSavedMovies()
+    }
+  }, [loggedIn]);
   
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -131,11 +146,9 @@ function App() {
                 <ProtectedRoute
                   component={Movies}
                   loggedIn={loggedIn}
-                  loadAllMovies={loadAllMovies}
-                  loadSavedMovies={loadSavedMovies}
-                  allMovies={allMovies}
                   savedMovies={savedMovies}
-                  isLoading={isLoading}
+                  handleSaveMovie={handleSaveMovie}
+                  
                 /> 
               } />
             <Route
@@ -144,8 +157,8 @@ function App() {
                 <ProtectedRoute
                   component={SavedMovies}
                   loggedIn={loggedIn}
-                  loadMovies={loadSavedMovies}
                   movies={savedMovies}
+                  handleDeleteMovie={handleDeleteMovie}
                 /> 
               } />
             <Route

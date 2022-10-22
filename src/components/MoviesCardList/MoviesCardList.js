@@ -2,15 +2,16 @@ import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies, isSavedMoviesPage, savedMovies, handleDelete}) {  
+function MoviesCardList({ movies, savedMovies, isSavedMoviesPage, handleSaveMovie, handleDeleteMovie }) {  
 
   const cardsElements = movies.map((item) => {
     return (
-      <li key={item.id}>
+      <li key={isSavedMoviesPage ? item._id : item.id}>
         <MoviesCard
           card={item}
           isSavedMoviesPage={isSavedMoviesPage}
-          handleDelete={handleDelete}
+          handleDelete={handleDeleteMovie}
+          handleSave={handleSaveMovie}
           savedMovies={savedMovies}
         />
       </li>
