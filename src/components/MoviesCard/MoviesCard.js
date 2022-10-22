@@ -32,6 +32,11 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, handleSave, handleD
     })
   }
 
+  function onDelete(evt) {
+    evt.preventDefault();
+    handleDelete(movie._id);
+  }
+
   return (
     <a className='card' href={movie.trailerLink} target="_blank" rel="noreferrer">
       <div className='card__header'>
@@ -47,7 +52,7 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, handleSave, handleD
         <button 
           className='card__button card__button_type_delete' 
           type='button' 
-          onClick={ () => handleDelete(movie._id) }
+          onClick={onDelete}
         />
           
         : <button 
