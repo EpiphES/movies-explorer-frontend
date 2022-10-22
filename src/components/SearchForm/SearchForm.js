@@ -4,14 +4,9 @@ import { useState, useEffect } from 'react';
 
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ name, handleSearch }) {
+function SearchForm({ name, handleSearch, isChecked, handleCheckBox }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchQueryError, setSearchQueryError] = useState('');
-  const [isFilterActive, setIsFilterActive] = useState(false);
-
-  function  handleCheckBox() {
-      setIsFilterActive((prevState) => !prevState);    
-    }
+  const [searchQueryError, setSearchQueryError] = useState('');  
 
   function handleSearchInputChange(evt) {
     setSearchQuery(evt.target.value);
@@ -21,21 +16,17 @@ function SearchForm({ name, handleSearch }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     searchQuery ? 
-      handleSearch(searchQuery, isFilterActive)
+      handleSearch(searchQuery)
       : 
       setSearchQueryError('Нужно ввести ключевое слово');   
   }
 
   useEffect(() => {
     if(name === 'movies') {
-      const query = localStorage.getItem('searchQuery');
-      const isChecked = localStorage.getItem('filterActive');
+      const query = localStorage.getItem('searchQuery');      
       if(query) {
         setSearchQuery(query);
-      }
-      if(isChecked) {
-        setIsFilterActive(true);
-      }
+      }      
     }
   }, [name]);
 
@@ -71,11 +62,10 @@ function SearchForm({ name, handleSearch }) {
           {searchQueryError}
         </span>
         <FilterCheckbox 
-          isChecked={isFilterActive}
+          isChecked={isChecked}
           handleCheckBox={handleCheckBox}
-        />
-      </form>
-      
+        />        
+      </form>      
     </section>
   );
 }

@@ -9,19 +9,21 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
 import * as MoviesApi from '../../utils/MoviesApi';
-import { filterMovies } from '../../utils/utils';
+import { filterByKeyWord, filterByDuration } from '../../utils/utils';
 import useWindowWidth from '../../utils/useWindowWidth';
 
 function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
   const [allMovies, setAllMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [slicedMovies, setSlicedMovies] = useState([]);
   const windowWidth = useWindowWidth();
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isFilterActive, setIsFilterActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  function handleSearch(searchQuery, isFilterActive) {
+  function handleSearch(searchQuery) {
     setIsLoading(true);
     setIsSearchActive(true);
     setIsError(false);
@@ -31,9 +33,7 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       .then((res) => {
         setAllMovies(res);
         localStorage.setItem('allMovies', JSON.stringify(res));
-        const filteredMovies = filterMovies(res, searchQuery, isFilterActive);
-        setSearchedMovies(filteredMovies);
-        localStorage.setItem('searchedMovies', JSON.stringify(filteredMovies));      
+        setSearchedMovies(filterByKeyWord(res, searchQuery));      
       })
       .catch((err) => {
         console.log(err);
@@ -41,23 +41,32 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       })
       .finally(() => setIsLoading(false));
     } else {
-      const filteredMovies = filterMovies(allMovies, searchQuery, isFilterActive);
-      setSearchedMovies(filteredMovies);
-      localStorage.setItem('searchedMovies', JSON.stringify(filteredMovies));
+      setSearchedMovies(filterByKeyWord(allMovies, searchQuery));
       setIsLoading(false);
     }    
-    localStorage.setItem('searchQuery', searchQuery);
-    isFilterActive ? 
-    localStorage.setItem('filterActive', 'true') :
-    localStorage.removeItem('filterActive');   
+    localStorage.setItem('searchQuery', searchQuery);   
   }
+
+  function handleCheckBox() {
+      setIsFilterActive((prevState) => !prevState);    
+    }
 
   function addMovies() {
     let addition = windowWidth > 1024 ? 3 : 2;
     setSlicedMovies((prevVal) => {
-      return prevVal.concat(searchedMovies.slice(prevVal.length, prevVal.length + addition));
+      return prevVal.concat(filteredMovies.slice(prevVal.length, prevVal.length + addition));
     })
   }
+
+  useEffect(() => {
+    if(isFilterActive) {
+      localStorage.setItem('filterActive', 'true');
+      setFilteredMovies(filterByDuration(searchedMovies))
+    } else {
+      localStorage.removeItem('filterActive');
+      setFilteredMovies(searchedMovies);
+    }    
+  }, [isFilterActive, searchedMovies])
 
   useEffect (() => {
     let limit;
@@ -68,22 +77,26 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
     } else {
       limit = 5;
     }
-     if(searchedMovies.length > limit) {
-      setSlicedMovies(searchedMovies.slice(0, limit))
+     if(filteredMovies.length > limit) {
+      setSlicedMovies(filteredMovies.slice(0, limit))
     } else {
-      setSlicedMovies(searchedMovies);
+      setSlicedMovies(filteredMovies);
     }
-  }, [windowWidth, searchedMovies]);
+  }, [windowWidth, filteredMovies]);
 
   useEffect(() => {
     const all = localStorage.getItem('allMovies');
     const searched = localStorage.getItem('searchedMovies');
+    const isChecked = localStorage.getItem('filterActive');
     if(all) {
       setAllMovies(JSON.parse(all));
     }
     if(searched) {
       setSearchedMovies(JSON.parse(searched));
     }
+    if(isChecked) {
+        setIsFilterActive(true);
+      }
   },[])
 
   return (
@@ -93,6 +106,8 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
         <SearchForm 
           name={'movies'}
           handleSearch={handleSearch}
+          isChecked={isFilterActive}
+          handleCheckBox={handleCheckBox}
         />
         { isLoading && <Preloader /> }
         { isError && <p className='movies__error-message'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p>}
