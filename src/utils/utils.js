@@ -10,6 +10,13 @@ function filterByDuration(array) {
   return array.filter((item) => item.duration <= 40);
 }
 
+function filterMovies(array, keyWord, isFilterActive) {
+  const filteredMovies = filterByKeyWord(array, keyWord);
+  return isFilterActive ?
+      filterByDuration(filteredMovies) :
+      filteredMovies;
+}
+
 function convertTime(minutes) {
   const hours = Math.floor(minutes/60);
   const mins = minutes % 60;
@@ -38,5 +45,6 @@ function convertTime(minutes) {
 export {
   filterByKeyWord, 
   filterByDuration,
+  filterMovies,
   convertTime,
 };
