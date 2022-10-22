@@ -115,6 +115,7 @@ function App() {
   }
 
   useEffect(() => {
+    
     MainApi
       .getCurrentUser()
       .then((user) => {
@@ -122,6 +123,7 @@ function App() {
         setCurrentUser(user.data);
       })
       .catch((err) => console.log(err));
+    return localStorage.clear();
   }, []);
 
   useEffect(() => {
@@ -148,7 +150,7 @@ function App() {
                   loggedIn={loggedIn}
                   savedMovies={savedMovies}
                   handleSaveMovie={handleSaveMovie}
-                  
+                  handleDeleteMovie={handleDeleteMovie}
                 /> 
               } />
             <Route
