@@ -13,8 +13,7 @@ export default function useWindowWidth() {
     function handleResize() {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        getWindowWidth();
-        console.log(window.innerWidth) 
+        getWindowWidth(); 
       }, '500');
     };
     
