@@ -46,7 +46,9 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       setIsLoading(false);
     }    
     localStorage.setItem('searchQuery', searchQuery);
-    localStorage.setItem('isFilterActive', isFilterActive);    
+    isFilterActive ? 
+    localStorage.setItem('filterActive', 'true') :
+    localStorage.removeItem('filterActive');   
   }
 
   function addMovies() {

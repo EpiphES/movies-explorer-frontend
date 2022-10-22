@@ -1,16 +1,16 @@
 import './SearchForm.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ name, renderMovies }) {
+function SearchForm({ name, handleSearch }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchQueryError, setSearchQueryError] = useState('');
-  const [isFilterActive, setFilterActive] = useState(false);
+  const [isFilterActive, setIsFilterActive] = useState(false);
 
   function  handleCheckBox() {
-      setFilterActive((prevState) => !prevState);    
+      setIsFilterActive((prevState) => !prevState);    
     }
 
   function handleSearchInputChange(evt) {
@@ -21,10 +21,23 @@ function SearchForm({ name, renderMovies }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     searchQuery ? 
-      renderMovies(searchQuery, isFilterActive)
+      handleSearch(searchQuery, isFilterActive)
       : 
       setSearchQueryError('Нужно ввести ключевое слово');   
   }
+
+  useEffect(() => {
+    if(name === 'movies') {
+      const query = localStorage.getItem('searchQuery');
+      const isChecked = localStorage.getItem('filterActive');
+      if(query) {
+        setSearchQuery(query);
+      }
+      if(isChecked) {
+        setIsFilterActive(true);
+      }
+    }
+  }, [name]);
 
   return (
     <section className="search-form">
