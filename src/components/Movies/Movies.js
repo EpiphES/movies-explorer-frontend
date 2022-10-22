@@ -41,8 +41,9 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       })
       .finally(() => setIsLoading(false));
     } else {
-      setSearchedMovies(filterMovies(allMovies, searchQuery, isFilterActive));
-      localStorage.setItem('searchedMovies', JSON.stringify(searchedMovies));
+      const filteredMovies = filterMovies(allMovies, searchQuery, isFilterActive);
+      setSearchedMovies(filteredMovies);
+      localStorage.setItem('searchedMovies', JSON.stringify(filteredMovies));
       setIsLoading(false);
     }    
     localStorage.setItem('searchQuery', searchQuery);
