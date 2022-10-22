@@ -7,18 +7,34 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-import { filterMovies } from '../../utils/utils';
+import { filterByKeyWord, filterByDuration } from '../../utils/utils';
 
 function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
   const [searchedMovies, setSearchedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [isFilterActive, setIsFilterActive] = useState(false);
 
   function handleSearch(searchQuery, isFilterActive) {
-    setSearchedMovies(filterMovies(savedMovies, searchQuery, isFilterActive));
+    setSearchedMovies(filterByKeyWord(savedMovies, searchQuery, isFilterActive));
+  }
+
+  function handleCheckBox() {
+      setIsFilterActive((prevState) => !prevState);    
   }
 
   useEffect(() => {
     setSearchedMovies(savedMovies);
   }, [savedMovies]);
+
+  useEffect(() => {
+    if(isFilterActive) {
+      localStorage.setItem('filterActive', 'true');
+      setFilteredMovies(filterByDuration(searchedMovies))
+    } else {
+      localStorage.removeItem('filterActive');
+      setFilteredMovies(searchedMovies);
+    }    
+  }, [isFilterActive, searchedMovies])
 
   return (
     <>
@@ -27,6 +43,8 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
         <SearchForm 
           name={'saved-movies'}
           handleSearch={handleSearch}
+          isChecked={isFilterActive}
+          handleCheckBox={handleCheckBox}
         />
         { isError && <p className='movies__error-message'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p>}
         {
@@ -36,7 +54,7 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
         {
           !isError && searchedMovies.length > 0 &&
           <MoviesCardList 
-            movies={searchedMovies}
+            movies={filteredMovies}
             isSavedMoviesPage={true}
             handleDeleteMovie={handleDeleteMovie}
           />

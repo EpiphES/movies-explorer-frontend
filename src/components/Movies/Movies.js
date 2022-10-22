@@ -49,7 +49,7 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
 
   function handleCheckBox() {
       setIsFilterActive((prevState) => !prevState);    
-    }
+  }
 
   function addMovies() {
     let addition = windowWidth > 1024 ? 3 : 2;
