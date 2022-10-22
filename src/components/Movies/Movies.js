@@ -8,30 +8,51 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-import { filterByKeyWord, filterByDuration } from '../../utils/utils';
+import * as MoviesApi from '../../utils/MoviesApi';
+import { filterMovies } from '../../utils/utils';
 import useWindowWidth from '../../utils/useWindowWidth';
 
-function Movies({ loggedIn,  loadAllMovies, loadSavedMovies, allMovies, savedMovies, isLoading }) {
-  const [filteredMovies, setFilteredMovies] = useState([]);
+function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
+  const [allMovies, setAllMovies] = useState([]);
+  const [searchedMovies, setSearchedMovies] = useState([]);
   const [slicedMovies, setSlicedMovies] = useState([]);
   const windowWidth = useWindowWidth();
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  function renderMovies(searchQuery, isFilterActive) {
-    loadAllMovies();
-    const searchedMovies = filterByKeyWord(allMovies, searchQuery)
-
-    isFilterActive ?
-    setFilteredMovies(filterByDuration( searchedMovies)) :
-    setFilteredMovies(searchedMovies);
+  function handleSearch(searchQuery, isFilterActive) {
+    setIsLoading(true);
     setIsSearchActive(true);
+    setIsError(false);
+    if(allMovies.length === 0) {
+      MoviesApi
+      .getAllMovies()
+      .then((res) => {
+        setAllMovies(res);
+        localStorage.setItem('allMovies', JSON.stringify(res));
+        const filteredMovies = filterMovies(res, searchQuery, isFilterActive);
+        setSearchedMovies(filteredMovies);
+        localStorage.setItem('searchedMovies', JSON.stringify(filteredMovies));      
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsError(true);
+      })
+      .finally(() => setIsLoading(false));
+    } else {
+      setSearchedMovies(filterMovies(allMovies, searchQuery, isFilterActive));
+      localStorage.setItem('searchedMovies', JSON.stringify(searchedMovies));
+      setIsLoading(false);
+    }    
+    localStorage.setItem('searchQuery', searchQuery);
+    localStorage.setItem('isFilterActive', isFilterActive);    
   }
 
   function addMovies() {
-    let addition;
-    addition = windowWidth > 1024 ? 3 : 2;
+    let addition = windowWidth > 1024 ? 3 : 2;
     setSlicedMovies((prevVal) => {
-      return prevVal.concat(filteredMovies.slice(prevVal.length, prevVal.length + addition));
+      return prevVal.concat(searchedMovies.slice(prevVal.length, prevVal.length + addition));
     })
   }
 
@@ -44,16 +65,23 @@ function Movies({ loggedIn,  loadAllMovies, loadSavedMovies, allMovies, savedMov
     } else {
       limit = 5;
     }
-     if(filteredMovies.length > limit) {
-      setSlicedMovies(filteredMovies.slice(0, limit))
+     if(searchedMovies.length > limit) {
+      setSlicedMovies(searchedMovies.slice(0, limit))
     } else {
-      setSlicedMovies(filteredMovies);
+      setSlicedMovies(searchedMovies);
     }
-  }, [windowWidth, filteredMovies]);
+  }, [windowWidth, searchedMovies]);
 
   useEffect(() => {
-    loadSavedMovies()
-  }, [loadSavedMovies]);
+    const all = localStorage.getItem('allMovies');
+    const searched = localStorage.getItem('searchedMovies');
+    if(all) {
+      setAllMovies(JSON.parse(all));
+    }
+    if(searched) {
+      setSearchedMovies(JSON.parse(searched));
+    }
+  },[])
 
   return (
     <>
@@ -61,22 +89,26 @@ function Movies({ loggedIn,  loadAllMovies, loadSavedMovies, allMovies, savedMov
       <main className='movies'>
         <SearchForm 
           name={'movies'}
-          renderMovies={renderMovies}
+          handleSearch={handleSearch}
         />
         { isLoading && <Preloader /> }
+        { isError && <p className='movies__error-message'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p>}
         {
-          !isLoading && isSearchActive && filteredMovies.length === 0 &&
-          <p className='movies__no-movies'>Ничего не найдено</p>
+          !isLoading && !isError && isSearchActive && searchedMovies.length === 0 &&
+          <p className='movies__error-message'>Ничего не найдено</p>
         }
         {
-          !isLoading && filteredMovies.length > 0 &&
+          !isLoading && !isError && searchedMovies.length > 0 &&
           <>
             <MoviesCardList 
               movies={slicedMovies}
-              savedMovies={savedMovies} 
+              savedMovies={savedMovies}
+              isSavedMoviesPage={false}
+              handleSaveMovie={handleSaveMovie}
+              handleDeleteMovie={handleDeleteMovie}
             />       
             {
-              slicedMovies.length < filteredMovies.length &&
+              slicedMovies.length < searchedMovies.length &&
               <button className='movies__more' type='button' onClick={ addMovies }>Ещё</button>
             }
           </>

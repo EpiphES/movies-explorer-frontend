@@ -23,11 +23,11 @@
   opacity: .6;
 }
 
-.movies__no-movies {
+.movies__error-message {
   padding: 10px 0;
   text-align: center;
   color: #ee3465;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 @media screen and (max-width: 1024px) {
