@@ -22,6 +22,7 @@ function App() {
   const navigate = useNavigate();
   const [registerError, setRegisterError] = useState('');
   const [profileError, setProfileError] = useState('');
+  const [isLoadMoviesError, setIsLoadMoviesError] = useState(false);
   const [isInfotipOpen, setIsInfotipOpen] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   
@@ -89,7 +90,10 @@ function App() {
     MainApi
     .getSavedMovies()
     .then((res) => setSavedMovies(res.data))
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      setIsLoadMoviesError(true)
+      console.log(err)
+    });
   };
 
   function handleSaveMovie(data) {
@@ -159,8 +163,9 @@ function App() {
                 <ProtectedRoute
                   component={SavedMovies}
                   loggedIn={loggedIn}
-                  movies={savedMovies}
+                  savedMovies={savedMovies}
                   handleDeleteMovie={handleDeleteMovie}
+                  isError={isLoadMoviesError}
                 /> 
               } />
             <Route
