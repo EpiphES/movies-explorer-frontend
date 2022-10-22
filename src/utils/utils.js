@@ -40,8 +40,6 @@ function convertTime(minutes) {
   }  
 }
 
-
-
 export {
   filterByKeyWord, 
   filterByDuration,
