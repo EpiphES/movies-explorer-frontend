@@ -8,7 +8,7 @@ function MoviesCardList({ movies, savedMovies, isSavedMoviesPage, handleSaveMovi
     return (
       <li key={isSavedMoviesPage ? item._id : item.id}>
         <MoviesCard
-          card={item}
+          movie={item}
           isSavedMoviesPage={isSavedMoviesPage}
           handleDelete={handleDeleteMovie}
           handleSave={handleSaveMovie}

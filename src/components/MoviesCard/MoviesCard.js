@@ -4,60 +4,62 @@ import { useEffect, useState } from 'react';
 
 import { convertTime } from '../../utils/utils';
 
-
-function MoviesCard({ card, isSavedMoviesPage, savedMovies, handleSave, handleDelete }) {
-  const [isActive, setIsActive] = useState(false);
+function MoviesCard({ movie, isSavedMoviesPage, savedMovies, handleSave, handleDelete }) {
+  const [savedMovie, setSavedMovie] = useState(null);
+  
   useEffect (() => {
     if(!isSavedMoviesPage) {
-      setIsActive(savedMovies.some(item => item.movieId === card.id))
-    }
-    
-  }, [card.id, savedMovies, isSavedMoviesPage]);
+      setSavedMovie(savedMovies.find(item => item.movieId === movie.id));
+    }    
+  }, [movie.id, savedMovies, isSavedMoviesPage]);
 
-  function onSave() {
+  function toggleSave(evt) {
+    evt.preventDefault();
+    savedMovie ? 
+    handleDelete(savedMovie._id ) :
     handleSave( {
-      country: card.country,
-      director: card.director,
-      duration: card.duration,
-      year: card.year,
-      description: card.description,
-      image: 'https://api.nomoreparties.co/' + card.image.url,
-      trailerLink: card.trailerLink,
-      thumbnail: 'https://api.nomoreparties.co/' + card.image.formats.thumbnail.url,
-      movieId: card.id,
-      nameRU: card.nameRU,
-      nameEN: card.nameEN,
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: 'https://api.nomoreparties.co/' + movie.image.url,
+      trailerLink: movie.trailerLink,
+      thumbnail: 'https://api.nomoreparties.co/' + movie.image.formats.thumbnail.url,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
     })
   }
 
   return (
-    <div className='card'>
+    <a className='card' href={movie.trailerLink} target="_blank" rel="noreferrer">
       <div className='card__header'>
-        <h2 className='card__title'>{card.nameRU}</h2>
-        <p className='card__subtitle'>{convertTime(card.duration)}</p>
+        <h2 className='card__title'>{movie.nameRU}</h2>
+        <p className='card__subtitle'>{convertTime(movie.duration)}</p>
       </div>      
       <img 
         className='card__image' 
-        src={isSavedMoviesPage ? card.image : ('https://api.nomoreparties.co/' + card.image.url)} 
-        alt={card.nameRU} 
+        src={isSavedMoviesPage ? movie.image : ('https://api.nomoreparties.co/' + movie.image.url)} 
+        alt={movie.nameRU} 
       />
       { isSavedMoviesPage ?
         <button 
           className='card__button card__button_type_delete' 
           type='button' 
-          onClick={ () => handleDelete(card._id) }
+          onClick={ () => handleDelete(movie._id) }
         />
           
         : <button 
-          className={`card__button card__button_type_save ${isActive && 'card__button_type_active'}`} 
+          className={`card__button card__button_type_save ${savedMovie && 'card__button_type_active'}`} 
           type='button' 
-          onClick={onSave}
-        >
-          {!isActive && 'Сохранить'}
+          onClick={toggleSave}
+        > 
+          {!savedMovie && 'Сохранить'}
         </button>
       }
       
-    </div>
+    </a>
   );
 }
 
