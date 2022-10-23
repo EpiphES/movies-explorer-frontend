@@ -46,11 +46,11 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
         />
         { isError && <p className='movies__error-message'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p>}
         {
-          !isError && searchedMovies.length === 0 &&
+          !isError && filteredMovies.length === 0 &&
           <p className='movies__error-message'>Ничего не найдено</p>
         }
         {
-          !isError && searchedMovies.length > 0 &&
+          !isError && filteredMovies.length > 0 &&
           <MoviesCardList 
             movies={filteredMovies}
             isSavedMoviesPage={true}
