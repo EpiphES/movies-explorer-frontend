@@ -18,6 +18,8 @@
   border-radius: 20px;
   background-color:  #3ddc84;
   position: relative;
+  opacity: .5;
+  transition: transform .4s ease;
 }
 
 .filter__styled-checkbox::before {
@@ -38,6 +40,11 @@
   left: auto;
 }
 
+.filter__checkbox:checked+.filter__styled-checkbox,
+.filter__checkbox:checked~.filter__text {
+  opacity: 1;
+}
+
 .filter__label {
   display: flex;
   align-items: center;
@@ -46,14 +53,15 @@
   transition: opacity .5s ease;
 }
 
-.filter__label:hover {
-  opacity: .6;
+.filter__label:hover .filter__styled-checkbox {  
+  transform: scale(1.1);
 }
 
 .filter__text {
   font-weight: 400;
   font-size: 12px;
   line-height: 1.5;
+  opacity: .5;
 }
 
 @media screen and (max-width: 480px) {
