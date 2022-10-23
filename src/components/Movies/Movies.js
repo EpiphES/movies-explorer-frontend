@@ -65,7 +65,10 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
   }
 
   function handleCheckBox() {
-      setIsFilterActive((prevState) => !prevState);    
+      isFilterActive ? 
+      localStorage.removeItem('filterActive') :
+      localStorage.setItem('filterActive', 'true');
+      setIsFilterActive((prevState) => !prevState);   
   }
 
   function addMovies() {
