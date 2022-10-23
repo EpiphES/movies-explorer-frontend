@@ -1,7 +1,5 @@
 const MAIN_API_URL = 'https://api.kinomania.nomoredomains.icu';
-
 const MOVIES_API_URL = 'https://api.nomoreparties.co/beatfilm-movies';
-
 const HEADERS =  { 
   "Content-Type": "application/json", 
 };
@@ -13,6 +11,8 @@ const CARDS_PER_PAGE_MEDIUM = 8;
 const CARDS_PER_PAGE_SMALL = 5;
 const CARDS_ADD_LARGE = 3;
 const CARDS_ADD_MEDIUM = 2;
+
+const URL_REGEX = /^http(s)?:\/\/(www\.)?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]{1,256}\.[a-z]{1,6}\b[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*$/;
 
 export {
   MAIN_API_URL,
@@ -26,4 +26,5 @@ export {
   CARDS_PER_PAGE_SMALL,
   CARDS_ADD_LARGE,
   CARDS_ADD_MEDIUM,
+  URL_REGEX,
 }

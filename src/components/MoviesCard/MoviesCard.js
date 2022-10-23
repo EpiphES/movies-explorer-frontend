@@ -3,9 +3,11 @@ import './MoviesCard.css';
 import { useEffect, useState } from 'react';
 
 import { convertTime } from '../../utils/utils';
+import { URL_REGEX } from '../../utils/config';
 
 function MoviesCard({ movie, isSavedMoviesPage, savedMovies, handleSave, handleDelete }) {
   const [savedMovie, setSavedMovie] = useState(null);
+  const trailerLink = URL_REGEX.test(movie.trailerLink) ? movie.trailerLink : 'https://www.youtube.com';
   
   useEffect (() => {
     if(!isSavedMoviesPage) {
@@ -18,17 +20,17 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, handleSave, handleD
     savedMovie ? 
     handleDelete(savedMovie._id ) :
     handleSave( {
-      country: movie.country,
-      director: movie.director,
-      duration: movie.duration,
-      year: movie.year,
-      description: movie.description,
+      country: movie.country || 'unknown',
+      director: movie.director || 'unknown',
+      duration: movie.duration || 0,
+      year: movie.year || 0,
+      description: movie.description || 'no description',
       image: 'https://api.nomoreparties.co/' + movie.image.url,
-      trailerLink: movie.trailerLink,
+      trailerLink,
       thumbnail: 'https://api.nomoreparties.co/' + movie.image.formats.thumbnail.url,
       movieId: movie.id,
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
+      nameRU: movie.nameRU || 'unknown',
+      nameEN: movie.nameEN || 'unknown',
     })
   }
 
@@ -38,7 +40,7 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, handleSave, handleD
   }
 
   return (
-    <a className='card' href={movie.trailerLink} target="_blank" rel="noreferrer">
+    <a className='card' href={trailerLink} target="_blank" rel="noreferrer">
       <div className='card__header'>
         <h2 className='card__title'>{movie.nameRU}</h2>
         <p className='card__subtitle'>{convertTime(movie.duration)}</p>
