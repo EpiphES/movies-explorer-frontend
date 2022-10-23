@@ -17,7 +17,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('isAuth'));
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
   const [registerError, setRegisterError] = useState('');
@@ -33,6 +33,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user.data);
         setLoggedIn(true);
+        localStorage.setItem('isAuth', true)
         setLoginError('');
         navigate('/movies');
       })
@@ -124,14 +125,18 @@ function App() {
       .getCurrentUser()
       .then((user) => {
         setLoggedIn(true);
+        localStorage.setItem('isAuth', true);
         setCurrentUser(user.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        localStorage.removeItem('isAuth');
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
     if(loggedIn) {
-      loadSavedMovies()
+      loadSavedMovies();      
     }
   }, [loggedIn]);
   
