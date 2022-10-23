@@ -1,8 +1,6 @@
 function filterByKeyWord(array, keyWord) {
   return array.filter((item) => {
-    return (
-      Object.values(item).some((value) => value.toString().toLowerCase().includes(keyWord.toLowerCase()))      
-    );
+    return item.nameRU.toLowerCase().includes(keyWord.toLowerCase())
   });
 }
 
