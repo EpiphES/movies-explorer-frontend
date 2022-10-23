@@ -33,7 +33,9 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       .then((res) => {
         setAllMovies(res);
         localStorage.setItem('allMovies', JSON.stringify(res));
-        setSearchedMovies(filterByKeyWord(res, searchQuery));      
+        const filteredArray = filterByKeyWord(res, searchQuery);
+        setSearchedMovies(filteredArray); 
+        localStorage.setItem('searchedMovies', JSON.stringify(filteredArray));     
       })
       .catch((err) => {
         console.log(err);
@@ -41,10 +43,15 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       })
       .finally(() => setIsLoading(false));
     } else {
-      setSearchedMovies(filterByKeyWord(allMovies, searchQuery));
+      const filteredArray = filterByKeyWord(allMovies, searchQuery)
+      setSearchedMovies(filteredArray); 
+      localStorage.setItem('searchedMovies', JSON.stringify(filteredArray));
       setIsLoading(false);
     }    
-    localStorage.setItem('searchQuery', searchQuery);   
+    localStorage.setItem('searchQuery', searchQuery);
+    isFilterActive ? 
+      localStorage.setItem('filterActive', 'true') : 
+      localStorage.removeItem('filterActive');   
   }
 
   function handleCheckBox() {
@@ -60,10 +67,8 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
 
   useEffect(() => {
     if(isFilterActive) {
-      localStorage.setItem('filterActive', 'true');
       setFilteredMovies(filterByDuration(searchedMovies))
     } else {
-      localStorage.removeItem('filterActive');
       setFilteredMovies(searchedMovies);
     }    
   }, [isFilterActive, searchedMovies])
@@ -95,8 +100,8 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       setSearchedMovies(JSON.parse(searched));
     }
     if(isChecked) {
-        setIsFilterActive(true);
-      }
+      setIsFilterActive(true);
+    }
   },[])
 
   return (
@@ -112,11 +117,11 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
         { isLoading && <Preloader /> }
         { isError && <p className='movies__error-message'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p>}
         {
-          !isLoading && !isError && isSearchActive && searchedMovies.length === 0 &&
+          !isLoading && !isError && isSearchActive && filteredMovies.length === 0 &&
           <p className='movies__error-message'>Ничего не найдено</p>
         }
         {
-          !isLoading && !isError && searchedMovies.length > 0 &&
+          !isLoading && !isError && filteredMovies.length > 0 &&
           <>
             <MoviesCardList 
               movies={slicedMovies}
@@ -126,7 +131,7 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
               handleDeleteMovie={handleDeleteMovie}
             />       
             {
-              slicedMovies.length < searchedMovies.length &&
+              slicedMovies.length < filteredMovies.length &&
               <button className='movies__more' type='button' onClick={ addMovies }>Ещё</button>
             }
           </>
