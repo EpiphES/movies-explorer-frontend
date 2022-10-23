@@ -127,7 +127,6 @@ function App() {
         setCurrentUser(user.data);
       })
       .catch((err) => console.log(err));
-    return localStorage.clear();
   }, []);
 
   useEffect(() => {
