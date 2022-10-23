@@ -27,11 +27,17 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
+  outline: none;
 }
 
-.auth-form__input:focus {
-  outline: none;
+.auth-form__input:focus,
+.auth-form__input:hover {  
   border-bottom: 1px solid #4285f4;
+}
+
+.auth-form__input:autofill {
+  box-shadow: 0 0 0 30px #202020 inset !important;  
+  -webkit-text-fill-color: #fff !important;
 }
 
 .auth-form__input_invalid {
@@ -43,7 +49,6 @@
   min-height: 24px;
   display: flex;
   align-items: center;
-  font-weight: 400;
   font-size: 10px;
   line-height: 1.2;
   color: #ee3465;
@@ -76,10 +81,16 @@
 
 .auth-form__submit-button_disabled {
   opacity: .5;
+  cursor:wait
 }
 
 .auth-form__submit-button_disabled:hover {
   transform: none;
+}
+
+.auth-form__submit-error {
+  margin-top: 5px;
+  color: #ee3465;
 }
 
 @media screen and (max-width: 480px) {

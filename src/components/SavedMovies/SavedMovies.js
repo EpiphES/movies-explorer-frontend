@@ -1,34 +1,65 @@
 import './SavedMovies.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { savedMovies } from '../../utils/movies';
 
+import { filterByKeyWord, filterByDuration } from '../../utils/utils';
 
-function SavedMovies() {
-  const [movies, setMovies] = useState(savedMovies);
+function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
+  const [searchedMovies, setSearchedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [isFilterActive, setIsFilterActive] = useState(false);
 
-  function handleDelete(id) {
-    setMovies((prevState) => prevState.filter(item => item._id !== id))
-  } 
+  function handleSearch(searchQuery) {
+    setSearchedMovies(filterByKeyWord(savedMovies, searchQuery));
+  }
+
+  function handleCheckBox() {
+      setIsFilterActive((prevState) => !prevState);    
+  }
+
+  useEffect(() => {
+    setSearchedMovies(savedMovies);
+  }, [savedMovies]);
+
+  useEffect(() => {
+    if(isFilterActive) {
+      setFilteredMovies(filterByDuration(searchedMovies))
+    } else {
+      setFilteredMovies(searchedMovies);
+    }    
+  }, [isFilterActive, searchedMovies])
 
   return (
-    <div className='SavedMovies'>
-      <Header page={'saved-movies'} loggedIn={true}/>
+    <>
+      <Header page={'saved-movies'} loggedIn={loggedIn}/>
       <main className='saved-movies'>
-        <SearchForm />
-        <MoviesCardList 
-          movies={ movies }
-          isSavedMoviesPage
-          handleDelete={handleDelete}
-          />     
+        <SearchForm 
+          name={'saved-movies'}
+          handleSearch={handleSearch}
+          isChecked={isFilterActive}
+          handleCheckBox={handleCheckBox}
+        />
+        { isError && <p className='movies__error-message'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p>}
+        {
+          !isError && filteredMovies.length === 0 &&
+          <p className='movies__error-message'>Ничего не найдено</p>
+        }
+        {
+          !isError && filteredMovies.length > 0 &&
+          <MoviesCardList 
+            movies={filteredMovies}
+            isSavedMoviesPage={true}
+            handleDeleteMovie={handleDeleteMovie}
+          />
+        }     
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

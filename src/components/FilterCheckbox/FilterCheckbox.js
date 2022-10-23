@@ -1,6 +1,6 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox() {
+function FilterCheckbox({ isChecked, handleCheckBox}) {
   return (
     <div className='filter'>
       <label 
@@ -9,7 +9,9 @@ function FilterCheckbox() {
           className='filter__checkbox'
           type='checkbox'
           name='shorts'
-          id='shorts'           
+          id='shorts'
+          checked={isChecked}
+          onChange={handleCheckBox}
         />          
         <span className='filter__styled-checkbox' 
         />
