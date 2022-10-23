@@ -1,6 +1,6 @@
 import './AuthForm.css';
 
-function AuthForm({ name, submitText, children, onSubmit, isValid }) {
+function AuthForm({ name, submitText, children, onSubmit, isValid, isLoading}) {
   return (
     <form 
       className='auth-form'
@@ -11,12 +11,13 @@ function AuthForm({ name, submitText, children, onSubmit, isValid }) {
       {children}
       <button
         className={`auth-form__submit-button ${
-          !isValid && 'auth-form__submit-button_disabled'
+          (!isValid || isLoading) && 'auth-form__submit-button_disabled'
         }`}
         type='submit'
-        disabled={!isValid}
-        aria-label={submitText}>
-        {submitText}
+        disabled={!isValid || isLoading}
+        aria-label={submitText}
+      >
+        {isLoading ? 'Сохранение...': submitText}
       </button>
     </form>
   );

@@ -7,7 +7,7 @@ import useForm from '../../utils/useForm';
 import Logo from '../Logo/Logo';
 import AuthForm from '../AuthForm/AuthForm';
 
-function Register({ onRegister, registerError, setRegisterError }) {
+function Register({ onRegister, registerError, setRegisterError, isFormLoading }) {
   const initialFormValues = {
     name: '',
     email: '',
@@ -39,6 +39,7 @@ function Register({ onRegister, registerError, setRegisterError }) {
         submitText='Зарегистрироваться'
         onSubmit={handleSubmit}
         isValid={isFormValid}
+        isLoading={isFormLoading}
       >        
         <label 
           htmlFor='register-name' className='auth-form__label'>
@@ -60,6 +61,7 @@ function Register({ onRegister, registerError, setRegisterError }) {
           onChange={handleInputChange}
           value={values.name}
           autoComplete={'off'}
+          disabled={isFormLoading}
         />
         <span
           className={`auth-form__input-error ${
@@ -84,6 +86,7 @@ function Register({ onRegister, registerError, setRegisterError }) {
           onChange={handleInputChange}
           value={values.email}
           autoComplete={'off'}
+          disabled={isFormLoading}
         />
         <span
           className={`auth-form__input-error ${
@@ -107,6 +110,7 @@ function Register({ onRegister, registerError, setRegisterError }) {
           onChange={handleInputChange}
           value={values.password}
           autoComplete={'off'}
+          disabled={isFormLoading}
         />
         <span
           className={`auth-form__input-error ${

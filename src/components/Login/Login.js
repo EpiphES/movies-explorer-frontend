@@ -7,7 +7,7 @@ import useForm from '../../utils/useForm';
 import Logo from '../Logo/Logo';
 import AuthForm from '../AuthForm/AuthForm';
 
-function Login({onLogin, loginError, setLoginError}) {
+function Login({ onLogin, loginError, setLoginError, isFormLoading }) {
   
   const initialFormValues = {
     email: '',
@@ -39,6 +39,7 @@ function Login({onLogin, loginError, setLoginError}) {
         submitText='Войти'
         onSubmit={handleSubmit}
         isValid={isFormValid}
+        isLoading={isFormLoading}
       >        
         <label 
           htmlFor='login-email' className='auth-form__label'>
@@ -58,6 +59,7 @@ function Login({onLogin, loginError, setLoginError}) {
           onChange={handleInputChange}
           value={values.email}
           autoComplete={'off'}
+          disabled={isFormLoading}
         />
         <span
           className={`auth-form__input-error ${
@@ -81,6 +83,7 @@ function Login({onLogin, loginError, setLoginError}) {
           onChange={handleInputChange}
           value={values.password}
           autoComplete={'off'}
+          disabled={isFormLoading}
         />
         <span
           className={`auth-form__input-error ${

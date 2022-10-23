@@ -25,9 +25,11 @@ function App() {
   const [isLoadMoviesError, setIsLoadMoviesError] = useState(false);
   const [isInfotipOpen, setIsInfotipOpen] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isFormLoading, setIsFormLoading] = useState(false);
   
 
   function handleLogin({ email, password }) {
+    setIsFormLoading(true);    
     MainApi
       .login({ email, password })
       .then((user) => {
@@ -39,10 +41,12 @@ function App() {
       })
       .catch((err) => {
         setLoginError(err.message);
-      });
+      })
+      .finally(() => setIsFormLoading(false));
   }
 
   function handleRegister({ name, email, password }) {
+    setIsFormLoading(true);
     MainApi
     .register({ name, email, password })
     .then(() => {
@@ -52,9 +56,11 @@ function App() {
     .catch((err) => {
       setRegisterError(err.message);
     })
+    .finally(() => setIsFormLoading(false));
   }
 
   function handleUpdateUser({ name, email }) {
+    setIsFormLoading(true);
     MainApi
     .updateUser({ name, email })
     .then((user) => {
@@ -67,6 +73,7 @@ function App() {
       setProfileError(err.message);
       setIsInfotipOpen(true);
     })
+    .finally(() => setIsFormLoading(false));
   }
 
   function handleSignout() {
@@ -183,6 +190,7 @@ function App() {
                   isInfotipOpen={isInfotipOpen}
                   updateUserError={profileError}
                   handleInfotipClose={handleInfotipClose}
+                  isFormLoading={isFormLoading}
                 /> 
               } />
             <Route
@@ -194,6 +202,7 @@ function App() {
                   onLogin={handleLogin} 
                   loginError={loginError}
                   setLoginError={setLoginError}
+                  isFormLoading={isFormLoading}
                 /> 
               } />
             <Route
@@ -205,6 +214,7 @@ function App() {
                   onRegister={handleRegister}
                   registerError={registerError}
                   setRegisterError={setRegisterError}
+                  isFormLoading={isFormLoading}
                 /> 
               } />
             <Route

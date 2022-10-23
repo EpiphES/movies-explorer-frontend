@@ -9,7 +9,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import InfoTip from '../InfoTip/InfoTip';
 
 
-function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserError, handleInfotipClose }) {
+function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserError, handleInfotipClose, isFormLoading }) {
   const currentUser = useContext(CurrentUserContext);
   
   const initialFormValues = {
@@ -27,8 +27,8 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
   }
 
   useEffect(() => {
-    setIsSubmitDisabled(!isFormValid || (values.name === currentUser.name && values.email === currentUser.email))
-  }, [currentUser, isFormValid, values]);
+    setIsSubmitDisabled(!isFormValid || (values.name === currentUser.name && values.email === currentUser.email) || isFormLoading)
+  }, [currentUser, isFormValid, values, isFormLoading]);
 
   return (
     <>
@@ -59,6 +59,7 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
               onChange={handleChange}
               value={values.name}
               autoComplete={'off'}
+              disabled={isFormLoading}
             />
           </label>  
 
@@ -84,6 +85,7 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
               onChange={handleChange}
               value={values.email}
               autoComplete={'off'}
+              disabled={isFormLoading}
             />
           </label>            
           <span
@@ -96,7 +98,7 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
             className={`profile__button profile__button_type_submit ${isSubmitDisabled && 'profile__button_disabled'}`} type='submit'
             disabled={isSubmitDisabled}
             aria-label={'редактировать'}>
-            Редактировать
+            {isFormLoading ? 'Сохранение...' : 'Редактировать'}
           </button>
         </form>        
         <button 
