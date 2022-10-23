@@ -1,6 +1,6 @@
 import './App.css';
 import {useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
 import Main from '../Main/Main';
 import ProtectedRoute from '../ProtectedRoute/ProtectedPoute';
@@ -187,7 +187,9 @@ function App() {
               } />
             <Route
               path='/signin'
-              element={ 
+              element={
+                loggedIn ? 
+                <Navigate to='/' replace/> : 
                 <Login 
                   onLogin={handleLogin} 
                   loginError={loginError}
@@ -197,6 +199,8 @@ function App() {
             <Route
               path='/signup'
               element={
+                loggedIn ? 
+                <Navigate to='/' replace/> :
                 <Register 
                   onRegister={handleRegister}
                   registerError={registerError}
