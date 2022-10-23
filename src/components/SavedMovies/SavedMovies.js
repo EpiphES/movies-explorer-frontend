@@ -14,8 +14,8 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isFilterActive, setIsFilterActive] = useState(false);
 
-  function handleSearch(searchQuery, isFilterActive) {
-    setSearchedMovies(filterByKeyWord(savedMovies, searchQuery, isFilterActive));
+  function handleSearch(searchQuery) {
+    setSearchedMovies(filterByKeyWord(savedMovies, searchQuery));
   }
 
   function handleCheckBox() {
@@ -28,10 +28,8 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
 
   useEffect(() => {
     if(isFilterActive) {
-      localStorage.setItem('filterActive', 'true');
       setFilteredMovies(filterByDuration(searchedMovies))
     } else {
-      localStorage.removeItem('filterActive');
       setFilteredMovies(searchedMovies);
     }    
   }, [isFilterActive, searchedMovies])
