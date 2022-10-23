@@ -1,3 +1,5 @@
+import { SHORT_DURATION } from './config';
+
 function filterByKeyWord(array, keyWord) {
   return array.filter((item) => {
     return item.nameRU.toLowerCase().includes(keyWord.toLowerCase())
@@ -5,7 +7,7 @@ function filterByKeyWord(array, keyWord) {
 }
 
 function filterByDuration(array) {
-  return array.filter((item) => item.duration <= 40);
+  return array.filter((item) => item.duration <= SHORT_DURATION);
 }
 
 function filterMovies(array, keyWord, isFilterActive) {
