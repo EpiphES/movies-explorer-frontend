@@ -136,6 +136,7 @@ function App() {
         setCurrentUser(user.data);
       })
       .catch((err) => {
+        setLoggedIn(false);
         localStorage.removeItem('isAuth');
         console.log(err);
       });
