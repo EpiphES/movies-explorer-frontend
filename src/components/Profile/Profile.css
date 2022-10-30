@@ -116,28 +116,6 @@
   color: #ee3465;
 }
 
-.profile__info {
-  margin-bottom: 205px;
-}
-
-.profile__info-item {
-  padding-bottom: 16px;
-  margin-bottom: 18px;
-  display: flex;
-  justify-content: space-between;
-  
-  border-bottom: 1px solid #424242;
-
-  font-weight: 500;
-  font-size: 11px;
-  line-height: 1.18;
-}
-
-.profile__info-item:last-child {
-  margin-bottom: 0;
-  border: none;
-}
-
 @media screen and (max-width: 1024px) {
   .profile {
     max-width: 470px;
@@ -146,36 +124,29 @@
 
   .profile__title {
     margin-bottom: 95px;
-  }
-
-  .profile__info {
-    margin-bottom: 195px;
-  }
-
-  /* .profile__form {
-    
-  } */
+  }  
 }
 
 @media screen and (max-width: 480px) {
   .profile {
     max-width: 100%;
-    height: calc(100vh - 74px);
     padding: 70px 30px 40px;
+    min-height: calc(100vh - 74px);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
   }
 
   .profile__title {
     margin-bottom: 80px;
   }
 
-  .profile__info {
-    margin-bottom: 0;
-  }
-
   .profile__form {
-    margin-bottom: 0;
+    min-height: auto;
   }
 
+  
   .profile__button_type_edit {
     margin-top: auto;
   }
