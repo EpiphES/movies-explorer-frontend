@@ -13,9 +13,9 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
   const currentUser = useContext(CurrentUserContext);
   
   const initialFormValues = {
-    name: currentUser.name,
-    email: currentUser.email,
-  }
+    name: currentUser?.name,
+    email: currentUser?.email,
+  };
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
@@ -34,7 +34,7 @@ function Profile({ loggedIn, onSignout, onUpdateUser, isInfotipOpen, updateUserE
     <>
       <Header page={'profile'} loggedIn={loggedIn} />
       <main className='profile'>
-        <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
+        <h1 className='profile__title'>{`Привет, ${currentUser?.name}!`}</h1>
         <form 
           className='profile__form'
           name='profile-form'
