@@ -1,5 +1,4 @@
-# Фронтенд проекта Movies Explorer.
----
+# Фронтенд проекта Movies Explorer
 
 ## О проекте
 
